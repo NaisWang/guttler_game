@@ -1,6 +1,7 @@
 package whz.util;
 
 public class Global {
+	/*单元格的大小*/
 	public static final int CELL_SIZE = 15;
 	public static final int WIDTH = 20;
 	public static final int HEIGHT = 20;

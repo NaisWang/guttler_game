@@ -31,13 +31,12 @@ public class DoubleController extends KeyAdapter implements SnakeListener {
 	boolean snake_2Down = false;
 	boolean snake_2Left = false;
 	boolean snake_2Right = false;
-	private int nowSleep;
 	Snake_1 snake_1;
 	Snake_2 snake_2;
 	DoubleFood food;
 	Bullets bullets;
-	DoubleBarrier doubleBarrier = new DoubleBarrier();
-	DoubleGamePanel doubleGamePanle = new DoubleGamePanel();
+	DoubleBarrier doubleBarrier;
+	DoubleGamePanel doubleGamePanle;
 
 	public DoubleController(Snake_1 snake_1, Snake_2 snake_2, DoubleFood food, Bullets bullets,
 			DoubleGamePanel doubleGamePanle, DoubleBarrier doubleBarrier) {
@@ -56,6 +55,7 @@ public class DoubleController extends KeyAdapter implements SnakeListener {
 		food.addFood(getPoint());
 	}
 
+	// 随机生成5个食物
 	public ArrayList<Point> getPoint() {
 		ArrayList<Point> point = new ArrayList(5);
 		int x;
@@ -64,6 +64,7 @@ public class DoubleController extends KeyAdapter implements SnakeListener {
 			while (true) {
 				x = new Random().nextInt(Global.DOUBLE_WIDTH - 1);
 				y = new Random().nextInt(Global.DOUBLE_HEIGHT - 1);
+				// 判断随机生成的食物坐标是已在蛇节点上
 				for (int t = 0; t < snake_1.body.size(); t++) {
 					if ( t < snake_1.body.size()&&snake_1.body.get(t).x == x && snake_1.body.get(t).y == y) {
 						continue;
@@ -75,6 +76,7 @@ public class DoubleController extends KeyAdapter implements SnakeListener {
 					}
 				}
 
+				// 判断随机生成的食物坐标是已在已有的食物上
 				for (int t = 0; t < food.getFood().size(); t++) {
 					if (t < food.getFood().size() && food.getFood().get(t).x == x && food.getFood().get(t).y == y) {
 						continue;
@@ -124,33 +126,26 @@ public class DoubleController extends KeyAdapter implements SnakeListener {
 			}
 			break;
 		case KeyEvent.VK_G:
-			if (snake_1.produceBarrier(doubleBarrier.barriers, 1)) {
+			if (snake_1.produceBarrier()) {
 				doubleBarrier.barriers.add(doubleBarrier.new Barriers(1, snake_1.body.getFirst()));
 			}
 			break;
 		case KeyEvent.VK_H:
-			nowSleep = snake_1.getSleep();
-			if (nowSleep != 0) {
-				snake_1.setSleep(nowSleep - 100);
-			}
+			snake_1.setSleep(30);
 			break;
-		case KeyEvent.VK_SLASH:
+		case KeyEvent.VK_N:
 			if (snake_2.body.size() >= 5) {
 				snake_2.shoot();
 				bullets.getBullet().add(bullets.new Bullet(snake_2.oldDirection, 2, snake_2.body.getFirst()));
 			}
 			break;
-		case KeyEvent.VK_PERIOD:
-			if (snake_2.produceBarrier(doubleBarrier.barriers, 2)) {
+		case KeyEvent.VK_M:
+			if (snake_2.produceBarrier()) {
 				doubleBarrier.barriers.add(doubleBarrier.new Barriers(2, snake_2.body.getFirst()));
 			}
 			break;
 		case KeyEvent.VK_COMMA:
-			System.out.println(","+key);
-			nowSleep = snake_2.getSleep();
-			if (nowSleep != 0) {
-				snake_2.setSleep(nowSleep - 100);
-			}
+			snake_2.setSleep(30);
 			break;
 		}
 		if (snake_1Up == true && snake_1Down == false && snake_1Left == false && snake_1Right == false) {
@@ -219,9 +214,9 @@ public class DoubleController extends KeyAdapter implements SnakeListener {
 			snake_2Right = false;
 			break;
 		case KeyEvent.VK_H:
-			snake_1.sleep = 100;
+			snake_1.sleep = 150;
 		case KeyEvent.VK_COMMA:
-			snake_2.sleep = 100;
+			snake_2.sleep = 150;
 		}
 
 		if (snake_1Up == true && snake_1Down == false && snake_1Left == false && snake_1Right == false) {
@@ -261,20 +256,32 @@ public class DoubleController extends KeyAdapter implements SnakeListener {
 		}
 	}
 
+	/*
+	 蛇移动
+	 */
 	@Override
 	public void snakeMove(Snake snake) {
+		// 判断蛇头是否吃到食物
 		if (food.isEatenBySnake(snake.getHead())) {
+			// 如果蛇头是否吃到食物
 			snake.eatFood();
+			//如果在场的食物数量小于6个，则再随机添加食物
 			if (food.getFood().size() <= 5) {
 				food.addFood(getPoint());
 			}
 		}
-		
-		Snake_1isShoot();
-		Snake_2isShoot();
+
+		// 判断是否被射中
+		snake_1.isShoot(bullets, 1);
+		snake_2.isShoot(bullets, 2);
+
+		// 判断是否碰到障碍物
 		snake_1.isEatenBarrier(doubleBarrier.barriers,1);
 		snake_2.isEatenBarrier(doubleBarrier.barriers,2);
+
+		// 判断蛇是否吃到自己
 		if(snake_1.isEatSelf()) {
+			// 如果吃到自己，则去掉2个节点
 			snake_1.body.removeLast();
 			snake_1.body.removeLast();
 		}
@@ -282,47 +289,19 @@ public class DoubleController extends KeyAdapter implements SnakeListener {
 			snake_2.body.removeLast();
 			snake_2.body.removeLast();
 		}
-		System.out.println(snake_1.body.size());
+
 		if(snake_1.body.size()==3) {
 			snake_1.life=false;
 			int choice = JOptionPane.showConfirmDialog(null, "玩家1输了, 是否继续游戏？");
 			System.exit(0);
 		}
-		System.out.println(snake_2.body.size());
 		if(snake_2.body.size()==3) {
 			snake_2.life=false;
 			System.out.println(snake_2.body.size());
 			int choice = JOptionPane.showConfirmDialog(null, "玩家2输了, 是否继续游戏？");
 			System.exit(0);
 		}
+		// 刷新游戏面板
 		doubleGamePanle.display(snake_1, snake_2, food, bullets, doubleBarrier);
-	}
-
-	public void Snake_1isShoot() {
-		for (Bullet b : bullets.getBullet()) {
-			if (b.getFrom() == 2) {
-				for (Point p : snake_1.body) {
-					if (b.x == p.x && b.y == p.y) {
-						snake_1.body.remove(p);
-						bullets.getBullet().remove(b);
-						return;
-					}
-				}
-			}
-		}
-	}
-
-	public void Snake_2isShoot() {
-		for (Bullet b : bullets.getBullet()) {
-			if (b.getFrom() == 1) {
-				for (Point p : snake_2.body) {
-					if (b.x == p.x && b.y == p.y) {
-						snake_2.body.remove(p);
-						bullets.getBullet().remove(b);
-						return;
-					}
-				}
-			}
-		}
 	}
 }

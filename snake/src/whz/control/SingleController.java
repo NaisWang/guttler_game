@@ -109,7 +109,7 @@ public class SingleController extends KeyAdapter implements SnakeListener {
 	}
 
 	public void startGame() {
-		snake.start();
+		//snake.start();
 		food.addFood(getPoint());
 	}
 
@@ -129,7 +129,7 @@ public class SingleController extends KeyAdapter implements SnakeListener {
 
 	public void init() {
 		changeRank((String) gamePanel.rank.getSelectedItem());
-		snake.init();
+		//snake.init();
 		changeRank();
 		gamePanel.grade.setText("0");
 	}

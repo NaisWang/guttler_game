@@ -94,7 +94,7 @@ public class SingleGamePanel extends JPanel {
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		if(snake!=null&&food!=null&&barrier!=null) {
-			snake.drawSelf(g);
+			snake.drawSelf(g,1);
 			food.drawSelf(g);
 			barrier.drawSelf(g);
 		}

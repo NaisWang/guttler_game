@@ -24,7 +24,11 @@ public class DoubleBarrier{
 		}
 		
 		public void drawMyself(Graphics g) {
-			g.setColor(Color.black);
+			if(from == 1){
+				g.setColor(Color.GRAY);
+			}else{
+				g.setColor(Color.green);
+			}
 			g.fill3DRect((int)this.getX() * Global.CELL_SIZE, (int) this.getY() * Global.CELL_SIZE, Global.CELL_SIZE,
 					Global.CELL_SIZE, true);
 		}
