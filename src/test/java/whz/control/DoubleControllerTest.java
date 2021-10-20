@@ -29,12 +29,19 @@ class DoubleControllerTest {
         // 创建游戏控制器
         DoubleController doubleController = new DoubleController(snake_1, snake_2, food, bullets, doubleGamePanle, doubleBarrier);
 
+        KeyEvent keyEvent = new KeyEvent(new Component() { }, 0, 0, 0, 0);
 
         int sizeBefore_1 =  snake_1.body.size();
-        KeyEvent keyEvent = new KeyEvent(new Component() { }, 1, 1, 1, KeyEvent.VK_F);
+        keyEvent.setKeyCode(KeyEvent.VK_F);
         doubleController.keyPressed( keyEvent );
         int sizeAfter_1 =  snake_1.body.size();
         Assertions.assertEquals(sizeAfter_1,sizeBefore_1 - 1);
+
+        int sizeBefore_2 =  snake_2.body.size();
+        keyEvent.setKeyCode(KeyEvent.VK_N);
+        doubleController.keyPressed( keyEvent );
+        int sizeAfter_2 =  snake_2.body.size();
+        Assertions.assertNotEquals(sizeAfter_2,sizeBefore_2 - 1);
 
     }
 }
