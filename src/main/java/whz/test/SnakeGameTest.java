@@ -33,14 +33,14 @@ public class SnakeGameTest {
 		var snake2 = new StupidSnake("玩家2", Color.yellow, new Point(60, 1));
 		snake2.setDirection(Global.LEFT);
 		for (int i = 1; i < 4; i++) {
-			snake2.body.add(new Point(60 + i, 0));
+			snake2.body.add(new Point(60 + i, 1));
 		}
 
 		// 初始化障碍物
 		Barrier barrier = new Barrier();
 
 		gamePanel.addSnake(snake1);
-//		gamePanel.addSnake(snake2);
+		gamePanel.addSnake(snake2);
 		gamePanel.addBarrier(barrier);
 		// 初始化UI
 		JFrame jf = new JFrame();

@@ -50,6 +50,7 @@ public class BaseController {
                 break;
             }
 
+            // 判断是否碰到墙或障碍物
             for (var barrier : barriers) {
                 if (barrier.isHit(snake.getHead())) {
                     snake.life = false;
@@ -64,29 +65,30 @@ public class BaseController {
                 if (snake2 == snake) {
                     continue;
                 }
+
                 // 碰到Snake2了
                 if (snake2.isHit(head)) {
                     snake.life = false;
                     dieSnake.add(snake);
                     // 若头碰头，双方都输
-                    if (snake2.getHead().equals(head)) {
-                        snake2.life = false;
-                        dieSnake.add(snake2);
-                    }
+//                    if (snake2.getHead().equals(head)) {
+//                        snake2.life = false;
+//                        dieSnake.add(snake2);
+//                    }
                     break;
                 }
             }
 
-            if (dieSnake.size() > 0) {
-                break;
-            }
+//            if (dieSnake.size() > 0) {
+//                break;
+//            }
         }
 
         // 判断是否死亡，死亡则结束
         if (dieSnake.size() > 0) {
             String tips = "";
             for (var snake : dieSnake) {
-                tips += "玩家:";
+//                tips += "玩家:";
                 tips += snake.name;
                 tips += ',';
             }
@@ -109,6 +111,7 @@ public class BaseController {
     public List<Food> generateFood(int num) {
         var foods = new ArrayList<Food>();
         var snakes = gamePanel.getSnakes();
+        var barriers = gamePanel.getBarriers();
         for (int i = 0; i < num; i++) {
             int x, y;
             while (true) {
@@ -132,6 +135,13 @@ public class BaseController {
                 // 碰到以前生成的食物
                 for (var food : gamePanel.getFoods()) {
                     if (food.isHit(p)) {
+                        continue;
+                    }
+                }
+
+                // 碰到障碍物
+                for (var barrier: barriers) {
+                    if (barrier.isHit(p)) {
                         continue;
                     }
                 }
