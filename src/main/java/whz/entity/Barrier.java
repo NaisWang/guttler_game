@@ -32,7 +32,7 @@ public class Barrier {
 	}
 
 	//判断是否被蛇吃掉
-	public boolean isEatenBySnake(Snake snake) {
+	public boolean isEatenBySnake(StupidSnake snake) {
 		System.out.println("The barrier isn't touched by the snake");
 		Point head = snake.getHead();
 		for (int x = 0; x < Global.WIDTH; x++) {

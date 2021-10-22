@@ -3,55 +3,69 @@ package whz.test;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
 
-import whz.control.DoubleController;
-import whz.entity.Bullets;
-import whz.entity.DoubleBarrier;
-import whz.entity.DoubleFood;
-import whz.entity.Snake_1;
-import whz.entity.Snake_2;
-import whz.view.DoubleGamePanel;
+import whz.control.BaseController;
+import whz.entity.*;
+import whz.util.Global;
+import whz.view.GamePanel;
+
+import java.awt.*;
+import java.awt.event.KeyEvent;
 
 public class SnakeGameTest {
 	private static JTextField grade;
 
 	public static void main(String[] args) {
-		// 创建食物对象
-		DoubleFood food = new DoubleFood();
+		BaseController baseController = new BaseController();
+		GamePanel gamePanel = baseController.getGamePanel();
 
-		// 创建蛇对象
-		Snake_1 snake_1 = new Snake_1();
-		Snake_2 snake_2 = new Snake_2();
+		// 初始化蛇1
+		var snake1 = new StupidSnake("玩家1", Color.black, new Point(2, 0));
+		snake1.UP_KEY = KeyEvent.VK_W;
+		snake1.DOWN_KEY = KeyEvent.VK_S;
+		snake1.LEFT_KEY = KeyEvent.VK_A;
+		snake1.RIGHT_KEY = KeyEvent.VK_D;
+		snake1.setDirection(Global.RIGHT);
+		for (int i = 1; i < 4; i++) {
+			snake1.body.add(new Point(2 - i, 0));
+		}
 
-		//创建子弹对象
-		Bullets bullets = new Bullets();
+		// 初始化蛇2
+		var snake2 = new StupidSnake("玩家2", Color.yellow, new Point(76, 0));
+		snake2.setDirection(Global.LEFT);
+		for (int i = 1; i < 4; i++) {
+			snake2.body.add(new Point(76 + i, 0));
+		}
 
-		//创建障碍物对象
-		DoubleBarrier doubleBarrier = new DoubleBarrier();
-
-		// 创建游戏面板
-		DoubleGamePanel doubleGamePanle = new DoubleGamePanel();
-
-		// 创建游戏控制器
-		DoubleController doubleController = new DoubleController(snake_1, snake_2, food, bullets, doubleGamePanle, doubleBarrier);
-
+		gamePanel.addSnake(snake1);
+//		gamePanel.addSnake(snake2);
+		// 初始化UI
 		JFrame jf = new JFrame();
-		jf.add(doubleGamePanle);
-
-		// 往2个蛇上添加控制器
-		snake_1.addSnakeListener(doubleController);
-		snake_2.addSnakeListener(doubleController);
+		jf.add(gamePanel);
 
 		// 往JFrame上添加键盘监听器
-		jf.addKeyListener(doubleController);
+		var snakes = gamePanel.getSnakes();
 
-		doubleGamePanle.requestFocus();
-		doubleController.start();
+		for (var snake : snakes) {
+			jf.addKeyListener(snake.keyAdapter);
+		}
+		gamePanel.requestFocus();
+		// 加一个食物
+		baseController.addRandomFood(1);
 
 		jf.setSize(1140, 800);
 		jf.setDefaultCloseOperation(jf.EXIT_ON_CLOSE);
 		jf.setLocationRelativeTo(null);
 		jf.setVisible(true);
 
+		while (true) {
+		    baseController.checkAndPaint();
+			try {
+				Thread.sleep(150);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+
+		}
 	}
 
 }
