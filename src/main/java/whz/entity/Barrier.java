@@ -17,6 +17,7 @@ import whz.util.Global;
 public class Barrier extends Entity {
 	private int[][] rocks = new int[Global.DOUBLE_WIDTH][Global.DOUBLE_HEIGHT];
 
+	//这个函数是用于添加边框，但是没有使用到，猜测是用于单人模式
 	public Barrier() {
 		for (int y = 0; y < Global.DOUBLE_HEIGHT; y++) {
 			for (int x = 0; x < Global.DOUBLE_WIDTH; x++) {
