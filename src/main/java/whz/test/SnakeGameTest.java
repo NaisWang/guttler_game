@@ -56,7 +56,7 @@ public class SnakeGameTest {
 		// 加一个食物
 		baseController.addRandomFood(1);
 
-		jf.setSize(Global.DOUBLE_WIDTH * 15, Global.DOUBLE_HEIGHT * 18);
+		jf.setSize(Global.DOUBLE_WIDTH * 15, Global.DOUBLE_HEIGHT * 16);
 		jf.setDefaultCloseOperation(jf.EXIT_ON_CLOSE);
 		jf.setLocationRelativeTo(null);
 		jf.setVisible(true);
