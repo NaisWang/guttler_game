@@ -53,10 +53,18 @@ class StupidSnakeTest {
         boolean eatFood1 =false;
         snake.move(eatFood1);
         Assertions.assertEquals(size,snake.body.size());
+    }
 
-
-
-
+    @Test
+    void iseatenitself(){
+        StupidSnake snake = new StupidSnake("Íæ¼Ò1", Color.black, new Point(1, 0));
+        snake.body.addFirst(new Point(2,2));
+        snake.body.add(new Point(2,1));
+        snake.body.add(new Point(3,1));
+        snake.body.add(new Point(2,2));
+        snake.body.add(new Point(3,2));
+        Assertions.assertTrue(snake.isEatSelf());
 
     }
+
 }
