@@ -45,7 +45,7 @@ class BaseControllerTest {
 
     //·½Ïò²âÊÔ
     @Test
-    void directionTest(){
+    void moveDirection(){
         GamePanel gamePanel = new GamePanel();
         StupidSnake snake=new StupidSnake("Íæ¼Ò1", Color.black, new Point(3, 1));
 
