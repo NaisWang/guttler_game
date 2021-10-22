@@ -11,7 +11,8 @@ import whz.util.Global;
 public class DoubleFood extends Point{
 
 	//所有食物的坐标
-	private LinkedList<Point> food = new LinkedList();//链表
+	private LinkedList<Point> food = new LinkedList();
+
 	
 	public LinkedList<Point> getFood() {
 		return food;

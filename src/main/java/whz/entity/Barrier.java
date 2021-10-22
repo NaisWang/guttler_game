@@ -17,7 +17,6 @@ import whz.util.Global;
 
 public class Barrier {
 	private int[][] rocks = new int[Global.WIDTH][Global.HEIGHT];
-
 	public Barrier() {
 		for (int y = 0; y < Global.HEIGHT; y++) {
 			for (int x = 0; x < Global.WIDTH; x++) {

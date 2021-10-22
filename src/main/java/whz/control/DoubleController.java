@@ -36,11 +36,12 @@ public class DoubleController extends KeyAdapter implements SnakeListener {
 	DoubleFood food;
 	Bullets bullets;
 	DoubleBarrier doubleBarrier;
-	DoubleGamePanel doubleGamePanle; //±‰¡ø
+
+	DoubleGamePanel doubleGamePanle;
 
 	public DoubleController(Snake_1 snake_1, Snake_2 snake_2, DoubleFood food, Bullets bullets,
 			DoubleGamePanel doubleGamePanle, DoubleBarrier doubleBarrier) {
-		super();//
+		super();
 		this.snake_1 = snake_1;
 		this.snake_2 = snake_2;
 		this.food = food;
@@ -52,7 +53,6 @@ public class DoubleController extends KeyAdapter implements SnakeListener {
 	public DoubleController() {
 
 	}
-
 	public void start() {
 		snake_1.start();
 		snake_2.start();
