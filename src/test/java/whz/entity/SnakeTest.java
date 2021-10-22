@@ -69,6 +69,7 @@ class SnakeTest {
         oldbodysize=snake.body.size();
         snake.eatFood();
         Assertions.assertEquals(snake.body.size(),oldbodysize+1);
+        System.out.println("new modify");
     }
 
     @Test
