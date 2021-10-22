@@ -33,9 +33,11 @@ public class BaseController {
         }
     }
 
+    // Ö÷Âß¼­£¬¼ì²éÉß×²Ç½¡¢×²ÉßµÈ£¬ÒÆ¶¯Éß
     public void checkAndPaint() {
         var foods = gamePanel.getFoods();
         var snakes = gamePanel.getSnakes();
+        var barriers = gamePanel.getBarriers();
         // ÒÆ¶¯£¬³ÔÊ³Îï
         snakesMove();
         List<StupidSnake> dieSnake = new ArrayList<>();
@@ -47,6 +49,16 @@ public class BaseController {
                 dieSnake.add(snake);
                 break;
             }
+
+            for (var barrier : barriers) {
+                if (barrier.isHit(snake.getHead())) {
+                    snake.life = false;
+                    dieSnake.add(snake);
+                    break;
+                }
+            }
+
+
             var head = snake.getHead();
             for (var snake2 : snakes) {
                 if (snake2 == snake) {

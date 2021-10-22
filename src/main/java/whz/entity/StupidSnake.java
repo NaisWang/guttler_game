@@ -66,6 +66,7 @@ public class StupidSnake extends Entity {
                 newDirection = Global.DOWN;
             }
 
+            // 不能突然反方向吃到自己
             if (body.size() > 1 && getNext(newDirection).equals(body.get(1))) {
                 return;
             }
@@ -126,7 +127,7 @@ public class StupidSnake extends Entity {
         return nextHead;
     }
 
-    // 判断下一次移动是否吃到自己
+    // 判断是否吃到自己
     public boolean isEatSelf() {
         var head = getHead();
         for (int i = 1; i < body.size(); i++) {

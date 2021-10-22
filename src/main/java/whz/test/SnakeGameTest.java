@@ -18,38 +18,42 @@ public class SnakeGameTest {
 		BaseController baseController = new BaseController();
 		GamePanel gamePanel = baseController.getGamePanel();
 
-		// åˆå§‹åŒ–è›‡1
-		var snake1 = new StupidSnake("ç©å®¶1", Color.black, new Point(2, 0));
+		// ³õÊ¼»¯Éß1
+		var snake1 = new StupidSnake("Íæ¼Ò1", Color.black, new Point(3, 1));
 		snake1.UP_KEY = KeyEvent.VK_W;
 		snake1.DOWN_KEY = KeyEvent.VK_S;
 		snake1.LEFT_KEY = KeyEvent.VK_A;
 		snake1.RIGHT_KEY = KeyEvent.VK_D;
 		snake1.setDirection(Global.RIGHT);
 		for (int i = 1; i < 4; i++) {
-			snake1.body.add(new Point(2 - i, 0));
+			snake1.body.add(new Point(3 - i, 1));
 		}
 
-		// åˆå§‹åŒ–è›‡2
-		var snake2 = new StupidSnake("ç©å®¶2", Color.yellow, new Point(76, 0));
+		// ³õÊ¼»¯Éß2
+		var snake2 = new StupidSnake("Íæ¼Ò2", Color.yellow, new Point(60, 1));
 		snake2.setDirection(Global.LEFT);
 		for (int i = 1; i < 4; i++) {
-			snake2.body.add(new Point(76 + i, 0));
+			snake2.body.add(new Point(60 + i, 0));
 		}
+
+		// ³õÊ¼»¯ÕÏ°­Îï
+		Barrier barrier = new Barrier();
 
 		gamePanel.addSnake(snake1);
 //		gamePanel.addSnake(snake2);
-		// åˆå§‹åŒ–UI
+		gamePanel.addBarrier(barrier);
+		// ³õÊ¼»¯UI
 		JFrame jf = new JFrame();
 		jf.add(gamePanel);
 
-		// å¾€JFrameä¸Šæ·»åŠ é”®ç›˜ç›‘å¬å™¨
+		// ÍùJFrameÉÏÌí¼Ó¼üÅÌ¼àÌıÆ÷
 		var snakes = gamePanel.getSnakes();
 
 		for (var snake : snakes) {
 			jf.addKeyListener(snake.keyAdapter);
 		}
 		gamePanel.requestFocus();
-		// åŠ ä¸€ä¸ªé£Ÿç‰©
+		// ¼ÓÒ»¸öÊ³Îï
 		baseController.addRandomFood(1);
 
 		jf.setSize(1140, 800);

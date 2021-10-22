@@ -8,12 +8,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GamePanel extends JPanel {
-    private List<StupidSnake> snakes;
-    private List<Food> foods;
+    private List<StupidSnake> snakes = new ArrayList<>();
+    private List<Food> foods = new ArrayList<>();
+    private List<Barrier> barriers = new ArrayList<>();
 
     public GamePanel() {
-        snakes = new ArrayList<>();
-        foods = new ArrayList<>();
         setLayout(null);
     }
 
@@ -27,6 +26,10 @@ public class GamePanel extends JPanel {
         for (var food : foods) {
             food.drawMyself(g);
         }
+
+        for (var barrier : barriers) {
+            barrier.drawMyself(g);
+        }
     }
 
     public void addSnake(StupidSnake snake) {
@@ -35,6 +38,10 @@ public class GamePanel extends JPanel {
 
     public void addFood(Food food) {
         foods.add(food);
+    }
+
+    public void addBarrier(Barrier barrier) {
+        barriers.add(barrier);
     }
 
     public List<StupidSnake> getSnakes() {
@@ -51,5 +58,13 @@ public class GamePanel extends JPanel {
 
     public void setFoods(List<Food> foods) {
         this.foods = foods;
+    }
+
+    public List<Barrier> getBarriers() {
+        return barriers;
+    }
+
+    public void setBarriers(List<Barrier> barriers) {
+        this.barriers = barriers;
     }
 }
