@@ -34,7 +34,7 @@ public class Barrier extends Entity {
 	//判断是否被蛇吃掉
     @Override
 	public boolean isHit(Point head) {
-		System.out.println("The barrier isn't touched by the snake");
+//		System.out.println("The barrier isn't touched by the snake");
 		for (int x = 0; x < Global.DOUBLE_WIDTH; x++) {
 			for (int y = 0; y < Global.DOUBLE_HEIGHT; y++) {
 				if (rocks[x][y] == 1 && head.x == x && head.y == y) {
@@ -47,7 +47,7 @@ public class Barrier extends Entity {
 
 	@Override
 	public void drawMyself(Graphics g) {
-		System.out.println("Barrier is drawing itself");
+//		System.out.println("Barrier is drawing itself");
 		g.setColor(getColor());
 		for (int y = 0; y < Global.DOUBLE_HEIGHT; y++) {
 			for (int x = 0; x < Global.DOUBLE_WIDTH; x++) {

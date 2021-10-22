@@ -118,32 +118,54 @@ public class BaseController {
                 x = new Random().nextInt(Global.DOUBLE_WIDTH - 1);
                 y = new Random().nextInt(Global.DOUBLE_HEIGHT - 1);
                 Food p = new Food(x, y);
+
+                var isHitSnake = false;
                 // 碰到蛇了
                 for (var snake : snakes) {
                     if (snake.isHit(p)) {
-                        continue;
+                        isHitSnake = true;
+                        break;
                     }
                 }
+                if (isHitSnake) {
+                    continue;
+                }
 
+                var isHitRandomFood = false;
                 // 碰到刚随机的食物
                 for (var food : foods) {
                     if (food.equals(p)) {
-                        continue;
+                        isHitRandomFood = true;
+                        break;
                     }
                 }
+                if (isHitRandomFood) {
+                    continue;
+                }
 
+                var isHitFood = false;
                 // 碰到以前生成的食物
                 for (var food : gamePanel.getFoods()) {
                     if (food.isHit(p)) {
-                        continue;
+                        isHitFood = true;
+                        break;
                     }
+                }
+                if (isHitFood) {
+                    continue;
                 }
 
                 // 碰到障碍物
+                var isHitBarrier = false;
                 for (var barrier: barriers) {
                     if (barrier.isHit(p)) {
-                        continue;
+                        isHitBarrier = true;
+                        break;
                     }
+                }
+
+                if (isHitBarrier) {
+                    continue;
                 }
 
                 foods.add(p);

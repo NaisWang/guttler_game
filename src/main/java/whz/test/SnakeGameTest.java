@@ -40,7 +40,7 @@ public class SnakeGameTest {
 		Barrier barrier = new Barrier();
 
 		gamePanel.addSnake(snake1);
-		gamePanel.addSnake(snake2);
+//		gamePanel.addSnake(snake2);
 		gamePanel.addBarrier(barrier);
 		// 初始化UI
 		JFrame jf = new JFrame();
@@ -56,7 +56,7 @@ public class SnakeGameTest {
 		// 加一个食物
 		baseController.addRandomFood(1);
 
-		jf.setSize(1140, 800);
+		jf.setSize(Global.DOUBLE_WIDTH * 15, Global.DOUBLE_HEIGHT * 18);
 		jf.setDefaultCloseOperation(jf.EXIT_ON_CLOSE);
 		jf.setLocationRelativeTo(null);
 		jf.setVisible(true);

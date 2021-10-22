@@ -53,7 +53,7 @@ public class StupidSnake extends Entity {
         @Override
         public void keyPressed(KeyEvent e) {
             var key = e.getKeyCode();
-            System.out.println("你按下了:" + key);
+//            System.out.println("你按下了:" + key);
             var newDirection = direction;
 
             if (key == LEFT_KEY) {
@@ -132,7 +132,7 @@ public class StupidSnake extends Entity {
         var head = getHead();
         for (int i = 1; i < body.size(); i++) {
             if (body.get(i).equals(head)) {
-                System.out.println("Snake is eaten by itself");
+//                System.out.println("Snake is eaten by itself");
                 return true;
             }
         }
