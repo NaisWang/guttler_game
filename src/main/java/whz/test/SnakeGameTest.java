@@ -59,7 +59,11 @@ public class SnakeGameTest {
 //		jf.setContentPane();
 //		System.out.println(jf.getBounds().getSize());
 //		System.exit(0);
-		jf.setSize(Global.DOUBLE_WIDTH * Global.CELL_SIZE + jf.getBounds().x, Global.DOUBLE_HEIGHT * Global.CELL_SIZE + jf.getBounds().y);
+        jf.pack();
+		var insets = jf.getInsets();
+		System.out.println(insets);
+		jf.setSize(Global.DOUBLE_WIDTH * Global.CELL_SIZE + insets.left + insets.right,
+				Global.DOUBLE_HEIGHT * Global.CELL_SIZE + insets.top + insets.bottom);
 		jf.setResizable(false);
 		jf.setDefaultCloseOperation(jf.EXIT_ON_CLOSE);
 		jf.setLocationRelativeTo(null);
