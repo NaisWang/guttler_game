@@ -14,8 +14,8 @@ import whz.util.Global;
  * 
  */
 
-public class Barrier {
-	private int[][] rocks = new int[Global.WIDTH][Global.HEIGHT];
+public class Barrier extends Entity {
+	private int[][] rocks = new int[Global.DOUBLE_WIDTH][Global.DOUBLE_HEIGHT];
 	public Barrier() {
 		for (int y = 0; y < Global.DOUBLE_HEIGHT; y++) {
 			for (int x = 0; x < Global.DOUBLE_WIDTH; x++) {
