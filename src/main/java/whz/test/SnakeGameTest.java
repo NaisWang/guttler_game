@@ -3,55 +3,81 @@ package whz.test;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
 
-import whz.control.DoubleController;
-import whz.entity.Bullets;
-import whz.entity.DoubleBarrier;
-import whz.entity.DoubleFood;
-import whz.entity.Snake_1;
-import whz.entity.Snake_2;
-import whz.view.DoubleGamePanel;
+import whz.control.BaseController;
+import whz.entity.*;
+import whz.util.Global;
+import whz.view.GamePanel;
+
+import java.awt.*;
+import java.awt.event.KeyEvent;
 
 public class SnakeGameTest {
 	private static JTextField grade;
 
 	public static void main(String[] args) {
-		// åˆ›å»ºé£Ÿç‰©å¯¹è±¡
-		DoubleFood food = new DoubleFood();
+		BaseController baseController = new BaseController();
+		GamePanel gamePanel = baseController.getGamePanel();
 
-		// åˆ›å»ºè›‡å¯¹è±¡
-		Snake_1 snake_1 = new Snake_1();
-		Snake_2 snake_2 = new Snake_2();
+		// ³õÊ¼»¯Éß1
+		var snake1 = new StupidSnake("Íæ¼Ò1", Color.black, new Point(3, 1));
+		snake1.UP_KEY = KeyEvent.VK_W;
+		snake1.DOWN_KEY = KeyEvent.VK_S;
+		snake1.LEFT_KEY = KeyEvent.VK_A;
+		snake1.RIGHT_KEY = KeyEvent.VK_D;
+		snake1.setDirection(Global.RIGHT);
+		for (int i = 1; i < 4; i++) {
+			snake1.body.add(new Point(3 - i, 1));
+		}
 
-		//åˆ›å»ºå­å¼¹å¯¹è±¡
-		Bullets bullets = new Bullets();
+		// ³õÊ¼»¯Éß2
+		var snake2 = new StupidSnake("Íæ¼Ò2", Color.yellow, new Point(60, 1));
+		snake2.setDirection(Global.LEFT);
+		for (int i = 1; i < 4; i++) {
+			snake2.body.add(new Point(60 + i, 1));
+		}
 
-		//åˆ›å»ºéšœç¢ç‰©å¯¹è±¡
-		DoubleBarrier doubleBarrier = new DoubleBarrier();
+		// ³õÊ¼»¯ÕÏ°­Îï
+		Barrier barrier = new Barrier();
 
-		// åˆ›å»ºæ¸¸æˆé¢æ¿
-		DoubleGamePanel doubleGamePanle = new DoubleGamePanel();
-
-		// åˆ›å»ºæ¸¸æˆæŽ§åˆ¶å™¨
-		DoubleController doubleController = new DoubleController(snake_1, snake_2, food, bullets, doubleGamePanle, doubleBarrier);
-
+		gamePanel.addSnake(snake1);
+//		gamePanel.addSnake(snake2);
+		gamePanel.addBarrier(barrier);
+		// ³õÊ¼»¯UI
 		JFrame jf = new JFrame();
-		jf.add(doubleGamePanle);
+		jf.add(gamePanel);
 
-		// å¾€2ä¸ªè›‡ä¸Šæ·»åŠ æŽ§åˆ¶å™¨
-		snake_1.addSnakeListener(doubleController);
-		snake_2.addSnakeListener(doubleController);
+		// ÍùJFrameÉÏÌí¼Ó¼üÅÌ¼àÌýÆ÷
+		var snakes = gamePanel.getSnakes();
 
-		// å¾€JFrameä¸Šæ·»åŠ é”®ç›˜ç›‘å¬å™¨
-		jf.addKeyListener(doubleController);
+		for (var snake : snakes) {
+			jf.addKeyListener(snake.keyAdapter);
+		}
+		gamePanel.requestFocus();
+		// ¼ÓÒ»¸öÊ³Îï
+		baseController.addRandomFood(1);
 
-		doubleGamePanle.requestFocus();
-		doubleController.start();
-
-		jf.setSize(1140, 800);
+//		jf.setContentPane();
+//		System.out.println(jf.getBounds().getSize());
+//		System.exit(0);
+        jf.pack();
+		var insets = jf.getInsets();
+		System.out.println(insets);
+		jf.setSize(Global.DOUBLE_WIDTH * Global.CELL_SIZE + insets.left + insets.right,
+				Global.DOUBLE_HEIGHT * Global.CELL_SIZE + insets.top + insets.bottom);
+		jf.setResizable(false);
 		jf.setDefaultCloseOperation(jf.EXIT_ON_CLOSE);
 		jf.setLocationRelativeTo(null);
 		jf.setVisible(true);
 
+		while (true) {
+		    baseController.checkAndPaint();
+			try {
+				Thread.sleep(50);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+
+		}
 	}
 
 }
