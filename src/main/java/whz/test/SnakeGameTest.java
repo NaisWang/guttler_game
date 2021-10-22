@@ -56,7 +56,11 @@ public class SnakeGameTest {
 		// 加一个食物
 		baseController.addRandomFood(1);
 
-		jf.setSize(Global.DOUBLE_WIDTH * 15, Global.DOUBLE_HEIGHT * 16);
+//		jf.setContentPane();
+//		System.out.println(jf.getBounds().getSize());
+//		System.exit(0);
+		jf.setSize(Global.DOUBLE_WIDTH * Global.CELL_SIZE + jf.getBounds().x, Global.DOUBLE_HEIGHT * Global.CELL_SIZE + jf.getBounds().y);
+		jf.setResizable(false);
 		jf.setDefaultCloseOperation(jf.EXIT_ON_CLOSE);
 		jf.setLocationRelativeTo(null);
 		jf.setVisible(true);
@@ -64,7 +68,7 @@ public class SnakeGameTest {
 		while (true) {
 		    baseController.checkAndPaint();
 			try {
-				Thread.sleep(150);
+				Thread.sleep(50);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
