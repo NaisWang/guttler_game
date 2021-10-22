@@ -81,6 +81,8 @@ class SnakeTest {
 
     @Test
     void drawSelf() {
+
+        System.out.println("this is draw");
     }
 
     @Test
