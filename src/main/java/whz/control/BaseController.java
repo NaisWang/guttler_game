@@ -96,7 +96,7 @@ public class BaseController {
 
             tips += " ß∞‹¡À";
             System.out.println(tips);
-            gamePanel.repaint();
+//            gamePanel.repaint();
             JOptionPane.showConfirmDialog(null, tips);
             System.exit(0);
         }
