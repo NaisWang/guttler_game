@@ -89,6 +89,7 @@ class StupidSnakeTest {
 
 		jf.addKeyListener(snake.keyAdapter);
 
+		jf.setSize(100,100);
 		jf.setFocusable(true);
 		jf.setVisible(true);
 

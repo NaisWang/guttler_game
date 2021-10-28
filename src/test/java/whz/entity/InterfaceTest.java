@@ -13,6 +13,7 @@ import java.awt.*;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import static java.time.Duration.ofMinutes;
@@ -70,6 +71,7 @@ public class InterfaceTest {
 
 			initJF();
 			gamePanel.repaint();
+			jf.dispose();
 
 		});
 	}
@@ -179,6 +181,8 @@ public class InterfaceTest {
 	//测试生成食物时碰到随机生成的食物
 	@Test
 	void judgeGenerateFoodMeetAgoFood() {
+
+
 		BaseController baseController = new BaseController();
 		ArrayList stupidSnakeList = new ArrayList<StupidSnake>();
 		stupidSnakeList.add(new StupidSnake("snake1", Color.white, new Point(1,3)));
