@@ -44,6 +44,7 @@ public class BaseController {
 
         // 判断是否碰到别的蛇
         for (var snake : snakes) {
+            //是否吃到自己
             if (snake.isEatSelf()) {
                 snake.life = false;
                 dieSnake.add(snake);

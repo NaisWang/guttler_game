@@ -16,5 +16,9 @@ class BarrierTest {
                 barrier.isHit(new Point(8, 0)),
                 true
         );
+        Assertions.assertEquals(
+                barrier.isHit(new Point(3, 3)),
+                false
+        );
     }
 }
