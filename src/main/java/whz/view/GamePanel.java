@@ -19,6 +19,7 @@ public class GamePanel extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
+        System.out.println("fffff");
         for (var snake : snakes) {
             snake.drawMyself(g);
         }

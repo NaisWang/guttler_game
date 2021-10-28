@@ -178,5 +178,6 @@ public class StupidSnake extends Entity {
         this.direction = direction;
     }
 
+
 }
 

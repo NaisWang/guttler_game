@@ -54,7 +54,7 @@ public class SnakeGameTest {
 		}
 		gamePanel.requestFocus();
 		// 加一个食物
-		baseController.addRandomFood(1);
+		baseController.addRandomFood(5);
 
 //		jf.setContentPane();
 //		System.out.println(jf.getBounds().getSize());
@@ -72,7 +72,7 @@ public class SnakeGameTest {
 		while (true) {
 		    baseController.checkAndPaint();
 			try {
-				Thread.sleep(50);
+				Thread.sleep(150);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}

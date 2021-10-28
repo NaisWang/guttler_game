@@ -1,5 +1,6 @@
 package whz.control;
 
+import whz.entity.Barrier;
 import whz.entity.Food;
 import whz.entity.StupidSnake;
 import whz.util.Global;
@@ -12,175 +13,160 @@ import java.util.List;
 import java.util.Random;
 
 public class BaseController {
-    GamePanel gamePanel = new GamePanel();
+	GamePanel gamePanel = new GamePanel();
 
-    // 移动+吃食物
-    public void snakesMove() {
-        var foods = gamePanel.getFoods();
-        var snakes = gamePanel.getSnakes();
-        // 移动，吃食物
-        for (var snake : snakes) {
-            var eatFood = false;
-            for (var food : foods) {
-                if (food.isEatenBySnake(snake.getNext())) {
-                    eatFood = true;
-                    foods.remove(food);
-                    break;
-                }
-            }
-            snake.move(eatFood);
-            //System.out.println(snake.name + ", " + snake.getHead().x + ", " + snake.getHead().y);
-        }
-    }
+	// 移动+吃食物
+	public void snakesMove() {
+		var foods = gamePanel.getFoods();
+		var snakes = gamePanel.getSnakes();
+		// 移动，吃食物
+		for (var snake : snakes) {
+			var eatFood = false;
+			for (var food : foods) {
+				if (food.isEatenBySnake(snake.getNext())) {
+					eatFood = true;
+					foods.remove(food);
+					break;
+				}
+			}
+			snake.move(eatFood);
+			//System.out.println(snake.name + ", " + snake.getHead().x + ", " + snake.getHead().y);
+		}
+	}
 
-    // 主逻辑，检查蛇撞墙、撞蛇等，移动蛇
-    public void checkAndPaint() {
-        var foods = gamePanel.getFoods();
-        var snakes = gamePanel.getSnakes();
-        var barriers = gamePanel.getBarriers();
-        // 移动，吃食物
-        snakesMove();
-        List<StupidSnake> dieSnake = new ArrayList<>();
+	// 主逻辑，检查蛇撞墙、撞蛇等，移动蛇
+	public void checkAndPaint() {
+		var foods = gamePanel.getFoods();
+		var snakes = gamePanel.getSnakes();
+		var barriers = gamePanel.getBarriers();
+		// 移动，吃食物
+		snakesMove();
+		List<StupidSnake> dieSnake = new ArrayList<>();
 
-        // 判断是否碰到别的蛇
-        for (var snake : snakes) {
-            //是否吃到自己
-            if (snake.isEatSelf()) {
-                snake.life = false;
-                dieSnake.add(snake);
-                break;
-            }
+		// 判断是否碰到别的蛇
+		for (var snake : snakes) {
+			//是否吃到自己
+			if (snake.isEatSelf()) {
+				snake.life = false;
+				dieSnake.add(snake);
+				break;
+			}
 
-            // 判断是否碰到墙或障碍物
-            for (var barrier : barriers) {
-                if (barrier.isHit(snake.getHead())) {
-                    snake.life = false;
-                    dieSnake.add(snake);
-                    break;
-                }
-            }
+			// 判断是否碰到墙或障碍物
+			for (var barrier : barriers) {
+				if (barrier.isHit(snake.getHead())) {
+					snake.life = false;
+					dieSnake.add(snake);
+					break;
+				}
+			}
 
 
-            var head = snake.getHead();
-            for (var snake2 : snakes) {
-                if (snake2 == snake) {
-                    continue;
-                }
+			var head = snake.getHead();
+			//System.out.println(head.x + ":" + head.y);
+			for (var snake2 : snakes) {
+				if (snake2 == snake) {
+					continue;
+				}
 
-                // 碰到Snake2了
-                if (snake2.isHit(head)) {
-                    snake.life = false;
-                    dieSnake.add(snake);
-                    // 若头碰头，双方都输
+				// 碰到Snake2了
+				if (snake2.isHit(head)) {
+					snake.life = false;
+					dieSnake.add(snake);
+					// 若头碰头，双方都输
 //                    if (snake2.getHead().equals(head)) {
 //                        snake2.life = false;
 //                        dieSnake.add(snake2);
 //                    }
-                    break;
-                }
-            }
+					break;
+				}
+			}
 
 //            if (dieSnake.size() > 0) {
 //                break;
 //            }
-        }
+		}
 
-        // 判断是否死亡，死亡则结束
-        if (dieSnake.size() > 0) {
-            String tips = "";
-            for (var snake : dieSnake) {
+		// 判断是否死亡，死亡则结束
+		if (dieSnake.size() > 0) {
+			String tips = "";
+			for (var snake : dieSnake) {
 //                tips += "玩家:";
-                tips += snake.name;
-                tips += ',';
-            }
+				tips += snake.name;
+				tips += ',';
+			}
 
-            tips += "fail";
-            System.out.print(tips);
+			tips += "fail";
+			System.out.print(tips);
 //            gamePanel.repaint();
-            JOptionPane.showConfirmDialog(null, tips);
-            //System.exit(0);
-        }
+			JOptionPane.showConfirmDialog(null, tips);
+			//System.exit(0);
+		}
 
-        // 判断是否要生成食物
-        if (foods.size() <= 0) {
-            addRandomFood(1);
-        }
-        gamePanel.repaint();
-    }
+		// 判断是否要生成食物
+		if (foods.size() <= 0) {
+			addRandomFood(1);
+		}
+		gamePanel.repaint();
+	}
 
-    // 随机生成食物
-    public List<Food> generateFood(int num) {
-        var foods = new ArrayList<Food>();
-        var snakes = gamePanel.getSnakes();
-        var barriers = gamePanel.getBarriers();
-        for (int i = 0; i < num; i++) {
-            int x, y;
-            while (true) {
-                x = new Random().nextInt(Global.DOUBLE_WIDTH - 1);
-                y = new Random().nextInt(Global.DOUBLE_HEIGHT - 1);
-                Food p = new Food(x, y);
+	// 随机生成食物
+	public List<Food> generateFood(int num) {
+		var foods = new ArrayList<Food>();
+		var snakes = gamePanel.getSnakes();
+		var barriers = gamePanel.getBarriers();
+		for (int i = 0; i < num; i++) {
+			boolean flag = false;
+			while (!flag) {
+				Food p = randomGenerateFoodCoordinate();
+				flag = judgeGenerateFoodIsEnable(p, snakes,barriers, foods);
+			}
+		}
+		return foods;
+	}
 
-                var isHitSnake = false;
-                // 碰到蛇了
-                for (var snake : snakes) {
-                    if (snake.isHit(p)) {
-                        isHitSnake = true;
-                        break;
-                    }
-                }
-                if (isHitSnake) {
-                    continue;
-                }
+	public void addRandomFood(int num) {
+		gamePanel.getFoods().addAll(generateFood(num));
+	}
 
-                var isHitRandomFood = false;
-                // 碰到刚随机的食物
-                for (var food : foods) {
-                    if (food.equals(p)) {
-                        isHitRandomFood = true;
-                        break;
-                    }
-                }
-                if (isHitRandomFood) {
-                    continue;
-                }
+	public GamePanel getGamePanel() {
+		return gamePanel;
+	}
 
-                var isHitFood = false;
-                // 碰到以前生成的食物
-                for (var food : gamePanel.getFoods()) {
-                    if (food.isHit(p)) {
-                        isHitFood = true;
-                        break;
-                    }
-                }
-                if (isHitFood) {
-                    continue;
-                }
+	private Food randomGenerateFoodCoordinate() {
+		return new Food(new Random().nextInt(Global.DOUBLE_WIDTH - 1), new Random().nextInt(Global.DOUBLE_HEIGHT - 1));
+	}
 
-                // 碰到障碍物
-                var isHitBarrier = false;
-                for (var barrier: barriers) {
-                    if (barrier.isHit(p)) {
-                        isHitBarrier = true;
-                        break;
-                    }
-                }
+	public Boolean judgeGenerateFoodIsEnable(Food p, List<StupidSnake> snakes, List<Barrier> barriers, ArrayList<Food> foods){
+		// 碰到蛇了
+		for (var snake : snakes) {
+			if (snake.isHit(p)) {
+				return false;
+			}
+		}
 
-                if (isHitBarrier) {
-                    continue;
-                }
+		// 碰到刚随机的食物
+		for (var food : foods) {
+			if (food.equals(p)) {
+				return false;
+			}
+		}
 
-                foods.add(p);
-                break;
-            }
-        }
-        return foods;
-    }
+		// 碰到以前生成的食物
+		for (var food : gamePanel.getFoods()) {
+			if (food.isHit(p)) {
+				return false;
+			}
+		}
 
-    public void addRandomFood(int num) {
-        gamePanel.getFoods().addAll(generateFood(num));
-    }
+		// 碰到障碍物
+		for (var barrier : barriers) {
+			if (barrier.isHit(p)) {
+				return false;
+			}
+		}
 
-    public GamePanel getGamePanel() {
-        return gamePanel;
-    }
+		foods.add(p);
+		return true;
+	}
 }

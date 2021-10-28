@@ -53,7 +53,7 @@ public class DoubleSnakeGameTest {
 		}
 		gamePanel.requestFocus();
 		// ????????
-		baseController.addRandomFood(1);
+		baseController.addRandomFood(5);
 
 //		jf.setContentPane();
 //		System.out.println(jf.getBounds().getSize());
