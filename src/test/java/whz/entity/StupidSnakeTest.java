@@ -94,14 +94,14 @@ class StupidSnakeTest {
 		keyCorr.put(KeyEvent.VK_RIGHT, Global.RIGHT);
 		keyCorr.put(KeyEvent.VK_DOWN, Global.DOWN);
 
-		// ´´½¨ Robot ÊµÀı
+		// åˆ›å»º Robot å®ä¾‹
 		Robot robot = new Robot();
 
-		// Ö´ĞĞÍêÒ»¸öÊÂ¼şºóÔÙÖ´ĞĞÏÂÒ»¸ö
+		// æ‰§è¡Œå®Œä¸€ä¸ªäº‹ä»¶åå†æ‰§è¡Œä¸‹ä¸€ä¸ª
 		robot.setAutoWaitForIdle(true);
 
 		for (Integer key : keyCorr.keySet()) {
-			// °´ÏÂÊó±ê×ó¼ü
+			// æŒ‰ä¸‹å¯¹åº”é”®
 			robot.keyPress(key);
 
 			Assertions.assertEquals(keyCorr.get(key), snake.direction);

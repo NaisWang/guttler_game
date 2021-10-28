@@ -57,7 +57,4 @@ public class Barrier extends Entity {
 		}
 	}
 
-	public int[][] getRocks() {
-		return this.rocks;
-	}
 }
