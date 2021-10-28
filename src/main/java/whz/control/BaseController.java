@@ -70,25 +70,15 @@ public class BaseController {
                 if (snake2.isHit(head)) {
                     snake.life = false;
                     dieSnake.add(snake);
-                    // 若头碰头，双方都输
-//                    if (snake2.getHead().equals(head)) {
-//                        snake2.life = false;
-//                        dieSnake.add(snake2);
-//                    }
                     break;
                 }
             }
-
-//            if (dieSnake.size() > 0) {
-//                break;
-//            }
         }
 
         // 判断是否死亡，死亡则结束
         if (dieSnake.size() > 0) {
             String tips = "";
             for (var snake : dieSnake) {
-//                tips += "玩家:";
                 tips += snake.name;
                 tips += ',';
             }
@@ -103,6 +93,19 @@ public class BaseController {
         // 判断是否要生成食物
         if (foods.size() <= 0) {
             addRandomFood(1);
+        }
+
+        // 分数到达一定程度，赢了
+        for (var snake : snakes) {
+            if (snake.food >= 10) {
+                String tips = "";
+                tips += snake.name;
+                tips += ',';
+                tips += "赢了";
+                gamePanel.repaint();
+                JOptionPane.showConfirmDialog(null, tips);
+                System.exit(0);
+            }
         }
         gamePanel.repaint();
     }

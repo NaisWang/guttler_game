@@ -52,7 +52,8 @@ public class SnakeGameTest {
 		for (var snake : snakes) {
 			jf.addKeyListener(snake.keyAdapter);
 		}
-		gamePanel.requestFocus();
+//		gamePanel.setFocusable(true);
+		gamePanel.requestFocusInWindow();
 		// 加一个食物
 		baseController.addRandomFood(1);
 
