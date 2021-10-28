@@ -157,12 +157,40 @@ public class InterfaceTest {
 		gamePanel.addSnake(snake1);
 		gamePanel.addSnake(snake2);
 
+		initConsoleDetect();
+
+		snake1.food = 99;
+		baseController.checkAndPaint();
+		Assertions.assertNotEquals("snake1,success", bytes.toString());
+
+		initConsoleDetect();
+		snake1.food = 100;
+		baseController.checkAndPaint();
+		Assertions.assertEquals("snake1,success", bytes.toString());
+
+		initConsoleDetect();
+		snake1.food = 101;
+		baseController.checkAndPaint();
+		Assertions.assertEquals("snake1,success", bytes.toString());
+
+	}
+
+	//测试checkoutAndPaint中的判断是否成功
+	@Test
+	void checkAndPaintForJudgeSuccess() {
+		BaseController baseController = new BaseController();
+		initGamePanel(baseController.getGamePanel());
+
+		//init Snake
+		initSnake();
+		gamePanel.addSnake(snake1);
+		gamePanel.addSnake(snake2);
+
 		gamePanel.getFoods().clear();
 
 		baseController.checkAndPaint();
 
 		Assertions.assertEquals(1, gamePanel.getFoods().size());
-
 	}
 
 	//测试生成食物时碰到随机生成的食物
@@ -181,7 +209,6 @@ public class InterfaceTest {
 	//测试生成食物时碰到随机生成的食物
 	@Test
 	void judgeGenerateFoodMeetAgoFood() {
-
 
 		BaseController baseController = new BaseController();
 		ArrayList stupidSnakeList = new ArrayList<StupidSnake>();
@@ -220,5 +247,6 @@ public class InterfaceTest {
 
 		Assertions.assertFalse(baseController.judgeGenerateFoodIsEnable(new Food(0,0), stupidSnakeList, gamePanel.getBarriers(), foods));
 	}
+
 
 }

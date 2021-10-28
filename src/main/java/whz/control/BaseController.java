@@ -129,12 +129,12 @@ public class BaseController {
 		}
 		// 分数到达一定程度，赢了
 		for (var snake : snakes) {
-			if (snake.food >= 10) {
+			if (snake.food >= 100) {
 				String tips = "";
 				tips += snake.name;
 				tips += ',';
-				tips += "赢了";
-				//gamePanel.repaint();
+				tips += "success";
+				System.out.print(tips);
 				int isDelete = JOptionPane.showConfirmDialog(null, tips + ", 是否要重新开始游戏", "提示", JOptionPane.YES_NO_OPTION);
 				if (isDelete == JOptionPane.YES_OPTION) {
 					init();

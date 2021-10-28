@@ -8,32 +8,32 @@ import java.awt.event.KeyEvent;
 import java.util.LinkedList;
 
 public class StupidSnake extends Entity {
-    //ÉßµÄµ±Ç°·½ÏòÓëÒª±äÏòµÄ·½Ïò
+    //ï¿½ßµÄµï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½Ä·ï¿½ï¿½ï¿½
     public int direction = Global.DOWN;
 
-    // ÉßÎ²µÄ×ø±ê
+    // ï¿½ï¿½Î²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 //    public Point tail;
-    // ³ÔµôÊ³ÎïµÄ¸öÊý
+    // ï¿½Ôµï¿½Ê³ï¿½ï¿½Ä¸ï¿½ï¿½ï¿½
     public int food = 0;
 
-    //ÉßÊÇ·ñ´æ»î
+    //ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½
     public boolean life = true;
 
 //    public boolean key = true;
 
-    // Éß¼àÌýÆ÷£¬¼àÌýÉßµÄÒÆ¶¯
+    // ï¿½ß¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ßµï¿½ï¿½Æ¶ï¿½
 //    public SnakeListener snakeListener;
 
-    // ÉßÉíÌåµÄËùÓÐ½Úµã¶ÔÓ¦µÄ×ø±ê
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð½Úµï¿½ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     public LinkedList<Point> body = new LinkedList();
 
-    // ÉßÃ¿´ÎÒÆ¶¯µÄ¼ä¸ôÊ±¼ä
+    // ï¿½ï¿½Ã¿ï¿½ï¿½ï¿½Æ¶ï¿½ï¿½Ä¼ï¿½ï¿½Ê±ï¿½ï¿½
     public int interval = 150;
 
-    // ÉßµÄÃû×Ö
+    // ï¿½ßµï¿½ï¿½ï¿½ï¿½ï¿½
     public String name = "snake0";
 
-    // ·½Ïò¶ÔÓ¦µÄ°´¼ü
+    // ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½Ä°ï¿½ï¿½ï¿½
     public int LEFT_KEY = KeyEvent.VK_LEFT;
     public int RIGHT_KEY = KeyEvent.VK_RIGHT;
     public int UP_KEY = KeyEvent.VK_UP;
@@ -47,13 +47,13 @@ public class StupidSnake extends Entity {
         body.push(pos);
     }
 
-    // ¼àÌý¼üÅÌ
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     public KeyAdapter keyAdapter = new KeyAdapter() {
         @Override
         public void keyPressed(KeyEvent e) {
 
             var key = e.getKeyCode();
-            System.out.println("Äã°´ÏÂÁË:" + key);
+            System.out.println("ï¿½ã°´ï¿½ï¿½ï¿½ï¿½:" + key);
             var newDirection = direction;
 
             if (key == LEFT_KEY) {
@@ -66,33 +66,23 @@ public class StupidSnake extends Entity {
                 newDirection = Global.DOWN;
             }
 
-            // ²»ÄÜÍ»È»·´·½Ïò³Ôµ½×Ô¼º
+            // ï¿½ï¿½ï¿½ï¿½Í»È»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ôµï¿½ï¿½Ô¼ï¿½
             if (body.size() > 1 && getNext(newDirection).equals(body.get(1))) {
               return;
             }
 
             setDirection(newDirection);
         }
-
-        @Override
-        public void keyTyped(KeyEvent e) {
-            super.keyTyped(e);
-        }
-
-        @Override
-        public void keyReleased(KeyEvent e) {
-            super.keyReleased(e);
-        }
     };
 
 
-    // ÉßÒÆ¶¯
+    // ï¿½ï¿½ï¿½Æ¶ï¿½
     public void move(boolean eatFood) {
-        // »ñÈ¡ÉßÍ·µÄ(x, y)×ø±ê
+        // ï¿½ï¿½È¡ï¿½ï¿½Í·ï¿½ï¿½(x, y)ï¿½ï¿½ï¿½ï¿½
         var head = getNext();
         body.addFirst(head);
 
-        // Èô³Ôµ½Ê³Îï£¬±£³ÖÎ²²¿
+        // ï¿½ï¿½ï¿½Ôµï¿½Ê³ï¿½ï£¬ï¿½ï¿½ï¿½ï¿½Î²ï¿½ï¿½
         if (!eatFood) {
 //            tail = body.removeLast();
             body.removeLast();
@@ -102,12 +92,12 @@ public class StupidSnake extends Entity {
 
     }
 
-    // »ñÈ¡ÉßÍ·×ø±ê
+    // ï¿½ï¿½È¡ï¿½ï¿½Í·ï¿½ï¿½ï¿½ï¿½
     public Point getHead() {
         return body.getFirst();
     }
 
-    // »ñÈ¡ÒªÒÆ¶¯µÄÏÂÒ»¸ö×ø±ê£¬ÊÇ·ñ×²Ç½¡¢×²±ðµÄÉßÓÉControllerÅÐ¶Ï
+    // ï¿½ï¿½È¡Òªï¿½Æ¶ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ê£¬ï¿½Ç·ï¿½×²Ç½ï¿½ï¿½×²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Controllerï¿½Ð¶ï¿½
     public Point getNext() {
         return getNext(direction);
     }
@@ -138,7 +128,7 @@ public class StupidSnake extends Entity {
         return nextHead;
     }
 
-    // ÅÐ¶ÏÊÇ·ñ³Ôµ½×Ô¼º
+    // ï¿½Ð¶ï¿½ï¿½Ç·ï¿½Ôµï¿½ï¿½Ô¼ï¿½
     public boolean isEatSelf() {
         var head = getHead();
         for (int i = 1; i < body.size(); i++) {
@@ -150,7 +140,7 @@ public class StupidSnake extends Entity {
         return false;
     }
 
-    // ÅÐ¶Ï±ðµÄÉßÊÇ·ñ´¥Åöµ½¸ÃÉß
+    // ï¿½Ð¶Ï±ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     @Override
     public boolean isHit(Point point) {
         for (var b : body) {
@@ -161,13 +151,13 @@ public class StupidSnake extends Entity {
         return false;
     }
 
-    // »æÖÆÉß
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     @Override
     public void drawMyself(Graphics graphics) {
         graphics.setColor(Color.blue);
-        // ±éÀúÉßµÄËùÓÐ½Úµã×ø±ê
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ßµï¿½ï¿½ï¿½ï¿½Ð½Úµï¿½ï¿½ï¿½ï¿½ï¿½
         for (int i = 0; i < body.size(); i++) {
-            // »æÖÆÉßµÄ½Úµã
+            // ï¿½ï¿½ï¿½ï¿½ï¿½ßµÄ½Úµï¿½
             if (body.get(i) != null) {
                 graphics.fillRoundRect((int) body.get(i).x * Global.CELL_SIZE, (int) body.get(i).y * Global.CELL_SIZE, Global.CELL_SIZE,
                         Global.CELL_SIZE, 10, 10);
