@@ -4,9 +4,11 @@ import org.junit.BeforeClass;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import whz.util.Global;
+import whz.view.GamePanel;
 
 import javax.lang.model.type.IntersectionType;
 import javax.swing.*;
+import javax.xml.validation.Validator;
 import java.awt.*;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
@@ -104,6 +106,36 @@ class StupidSnakeTest {
 
 			Assertions.assertEquals(keyCorr.get(key), snake.direction);
 		}
+	}
+
+	@Test
+	void showInterface() {
+		assertDoesNotThrow(() ->
+		{
+			JFrame jf = new JFrame();
+
+			// init gamPanel
+			GamePanel gamePanel = new GamePanel();
+
+			//init Snake
+			gamePanel.addSnake(new StupidSnake("snake1", Color.black, new Point(1, 2)));
+			gamePanel.addSnake(new StupidSnake("snake2", Color.white, new Point(2, 3)));
+
+			// init foods
+			gamePanel.addFood(new Food(1, 3));
+			gamePanel.addFood(new Food(1, 5));
+
+			// init barrier
+			gamePanel.addBarrier(new Barrier());
+			gamePanel.addBarrier(new Barrier());
+
+			jf.add(gamePanel);
+			jf.setSize(100, 100);
+			jf.setFocusable(true);
+			jf.setVisible(true);
+
+			gamePanel.repaint();
+		});
 	}
 
 }
