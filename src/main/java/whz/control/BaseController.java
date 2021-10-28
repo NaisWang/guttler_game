@@ -17,25 +17,32 @@ public class BaseController {
 
 	public void init() {
 		gamePanel.getFoods().clear();
+		addRandomFood(5);
+
 		List<StupidSnake> snakes = gamePanel.getSnakes();
-		Point[] points  = {new Point(1,2),new Point(Global.DOUBLE_WIDTH-2,2) };
+		Point[] points = {new Point(1, 2), new Point(Global.DOUBLE_WIDTH - 2, 2)};
 		int index = 0;
-		for(StupidSnake stupidSnake : snakes){
+		for (StupidSnake stupidSnake : snakes) {
 			stupidSnake.body.clear();
-			if(index == 0){
+			if (index == 0) {
+				stupidSnake.body.add(new Point(3, 1));
 				stupidSnake.setDirection(Global.RIGHT);
 				for (int i = 1; i < 4; i++) {
 					stupidSnake.body.add(new Point(3 - i, 1));
 				}
-			}else {
+			} else {
 				stupidSnake.setDirection(Global.LEFT);
+				stupidSnake.body.add(new Point(70, 1));
 				for (int i = 1; i < 4; i++) {
 					stupidSnake.body.add(new Point(70 + i, 1));
 				}
 			}
 			index++;
 		}
+
+
 	}
+
 	// 移动+吃食物
 	public void snakesMove() {
 		var foods = gamePanel.getFoods();
@@ -107,10 +114,13 @@ public class BaseController {
 
 			tips += "fail";
 			System.out.print(tips);
-			JOptionPane.showConfirmDialog(null, tips);
-			//System.exit(0);
-			init();
- 			return;
+			int isDelete = JOptionPane.showConfirmDialog(null, tips + ", 是否要重新开始游戏", "提示", JOptionPane.YES_NO_OPTION);
+			if (isDelete == JOptionPane.YES_OPTION) {
+				init();
+				return;
+			} else {
+				System.exit(0);
+			}
 		}
 
 		// 判断是否要生成食物
@@ -125,11 +135,13 @@ public class BaseController {
 				tips += ',';
 				tips += "赢了";
 				//gamePanel.repaint();
-				JOptionPane.showConfirmDialog(null, tips);
-				System.out.println(tips);
-				//System.exit(0);
-				init();
-				return;
+				int isDelete = JOptionPane.showConfirmDialog(null, tips + ", 是否要重新开始游戏", "提示", JOptionPane.YES_NO_OPTION);
+				if (isDelete == JOptionPane.YES_OPTION) {
+					init();
+					return;
+				} else {
+					System.exit(0);
+				}
 			}
 		}
 		gamePanel.repaint();
