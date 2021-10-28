@@ -68,8 +68,9 @@ public class StupidSnake extends Entity {
 
             // 不能突然反方向吃到自己
             if (body.size() > 1 && getNext(newDirection).equals(body.get(1))) {
-                return;
+              return;
             }
+
             setDirection(newDirection);
         }
     };
