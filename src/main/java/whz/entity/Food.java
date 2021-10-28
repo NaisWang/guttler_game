@@ -8,11 +8,6 @@ public class Food extends Entity {
         return isHit(p);
     }
 
-    public Food() {
-        setColor(Color.red);
-
-    }
-
     public Food(int x, int y) {
         super(x, y);
         setColor(Color.red);

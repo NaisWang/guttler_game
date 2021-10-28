@@ -36,10 +36,6 @@ public class GamePanel extends JPanel {
         snakes.add(snake);
     }
 
-    public void addFood(Food food) {
-        foods.add(food);
-    }
-
     public void addBarrier(Barrier barrier) {
         barriers.add(barrier);
     }
@@ -48,23 +44,12 @@ public class GamePanel extends JPanel {
         return snakes;
     }
 
-    public void setSnakes(List<StupidSnake> snakes) {
-        this.snakes = snakes;
-    }
-
     public List<Food> getFoods() {
         return foods;
-    }
-
-    public void setFoods(List<Food> foods) {
-        this.foods = foods;
     }
 
     public List<Barrier> getBarriers() {
         return barriers;
     }
 
-    public void setBarriers(List<Barrier> barriers) {
-        this.barriers = barriers;
-    }
 }
