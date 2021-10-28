@@ -11,9 +11,15 @@ public class GamePanel extends JPanel {
     private List<StupidSnake> snakes = new ArrayList<>();
     private List<Food> foods = new ArrayList<>();
     private List<Barrier> barriers = new ArrayList<>();
+    private JTextField scoreText = new JTextField();
 
     public GamePanel() {
-        setLayout(null);
+        scoreText.setText("分数：0");
+        scoreText.setFocusable(false);
+        this.add(scoreText);
+//        setLayout(null);
+//        setFocusable(true);
+//        requestFocus();
     }
 
     @Override
@@ -22,6 +28,7 @@ public class GamePanel extends JPanel {
         System.out.println("fffff");
         for (var snake : snakes) {
             snake.drawMyself(g);
+            scoreText.setText("分数：" + snake.food);
         }
 
         for (var food : foods) {
@@ -31,6 +38,7 @@ public class GamePanel extends JPanel {
         for (var barrier : barriers) {
             barrier.drawMyself(g);
         }
+
     }
 
     public void addSnake(StupidSnake snake) {

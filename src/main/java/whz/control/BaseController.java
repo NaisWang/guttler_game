@@ -13,100 +13,99 @@ import java.util.List;
 import java.util.Random;
 
 public class BaseController {
-	GamePanel gamePanel = new GamePanel();
+    GamePanel gamePanel = new GamePanel();
 
-	// 移动+吃食物
-	public void snakesMove() {
-		var foods = gamePanel.getFoods();
-		var snakes = gamePanel.getSnakes();
-		// 移动，吃食物
-		for (var snake : snakes) {
-			var eatFood = false;
-			for (var food : foods) {
-				if (food.isEatenBySnake(snake.getNext())) {
-					eatFood = true;
-					foods.remove(food);
-					break;
-				}
-			}
-			snake.move(eatFood);
-			//System.out.println(snake.name + ", " + snake.getHead().x + ", " + snake.getHead().y);
-		}
-	}
+    // 移动+吃食物
+    public void snakesMove() {
+        var foods = gamePanel.getFoods();
+        var snakes = gamePanel.getSnakes();
+        // 移动，吃食物
+        for (var snake : snakes) {
+            var eatFood = false;
+            for (var food : foods) {
+                if (food.isEatenBySnake(snake.getNext())) {
+                    eatFood = true;
+                    foods.remove(food);
+                    break;
+                }
+            }
+            snake.move(eatFood);
+            System.out.println(snake.name + ", " + snake.getHead().x + ", " + snake.getHead().y);
+        }
+    }
 
-	// 主逻辑，检查蛇撞墙、撞蛇等，移动蛇
-	public void checkAndPaint() {
-		var foods = gamePanel.getFoods();
-		var snakes = gamePanel.getSnakes();
-		var barriers = gamePanel.getBarriers();
-		// 移动，吃食物
-		snakesMove();
-		List<StupidSnake> dieSnake = new ArrayList<>();
+    // 主逻辑，检查蛇撞墙、撞蛇等，移动蛇
+    public void checkAndPaint() {
+        var foods = gamePanel.getFoods();
+        var snakes = gamePanel.getSnakes();
+        var barriers = gamePanel.getBarriers();
+        // 移动，吃食物
+        snakesMove();
+        List<StupidSnake> dieSnake = new ArrayList<>();
 
-		// 判断是否碰到别的蛇
-		for (var snake : snakes) {
-			//是否吃到自己
-			if (snake.isEatSelf()) {
-				snake.life = false;
-				dieSnake.add(snake);
-				break;
-			}
+        // 判断是否碰到别的蛇
+        for (var snake : snakes) {
+            if (snake.isEatSelf()) {
+                snake.life = false;
+                dieSnake.add(snake);
+                break;
+            }
 
-			// 判断是否碰到墙或障碍物
-			for (var barrier : barriers) {
-				if (barrier.isHit(snake.getHead())) {
-					snake.life = false;
-					dieSnake.add(snake);
-					break;
-				}
-			}
+            // 判断是否碰到墙或障碍物
+            for (var barrier : barriers) {
+                if (barrier.isHit(snake.getHead())) {
+                    snake.life = false;
+                    dieSnake.add(snake);
+                    break;
+                }
+            }
 
 
-			var head = snake.getHead();
-			//System.out.println(head.x + ":" + head.y);
-			for (var snake2 : snakes) {
-				if (snake2 == snake) {
-					continue;
-				}
+            var head = snake.getHead();
+            for (var snake2 : snakes) {
+                if (snake2 == snake) {
+                    continue;
+                }
 
-				// 碰到Snake2了
-				if (snake2.isHit(head)) {
-					snake.life = false;
-					dieSnake.add(snake);
-					// 若头碰头，双方都输
-//                    if (snake2.getHead().equals(head)) {
-//                        snake2.life = false;
-//                        dieSnake.add(snake2);
-//                    }
-					break;
-				}
-			}
+                // 碰到Snake2了
+                if (snake2.isHit(head)) {
+                    snake.life = false;
+                    dieSnake.add(snake);
+                    break;
+                }
+            }
+        }
 
-//            if (dieSnake.size() > 0) {
-//                break;
-//            }
-		}
-
-		// 判断是否死亡，死亡则结束
-		if (dieSnake.size() > 0) {
-			String tips = "";
-			for (var snake : dieSnake) {
-//                tips += "玩家:";
-				tips += snake.name;
-				tips += ',';
-			}
+        // 判断是否死亡，死亡则结束
+        if (dieSnake.size() > 0) {
+            String tips = "";
+            for (var snake : dieSnake) {
+                tips += snake.name;
+                tips += ',';
+            }
 
 			tips += "fail";
 			System.out.print(tips);
-//            gamePanel.repaint();
 			JOptionPane.showConfirmDialog(null, tips);
-			//System.exit(0);
+			System.exit(0);
 		}
 
 		// 判断是否要生成食物
 		if (foods.size() <= 0) {
 			addRandomFood(1);
 		}
+			// 分数到达一定程度，赢了
+			for (var snake : snakes) {
+				if (snake.food >= 10) {
+					String tips = "";
+					tips += snake.name;
+					tips += ',';
+					tips += "赢了";
+					gamePanel.repaint();
+					JOptionPane.showConfirmDialog(null, tips);
+					System.exit(0);
+				}
+			}
 		gamePanel.repaint();
 	}
 

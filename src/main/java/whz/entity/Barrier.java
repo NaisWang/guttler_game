@@ -27,7 +27,7 @@ public class Barrier extends Entity {
 				}
 			}
 		}
-		setColor(Color.yellow);
+		setColor(Color.gray);
 	}
 
 	//判断是否被蛇吃掉
