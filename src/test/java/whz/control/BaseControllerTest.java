@@ -21,13 +21,11 @@ class BaseControllerTest {
     StupidSnake snake1;
     Barrier barrier;
 
-    //?????
     @BeforeEach
     public void setUp(){
         baseController = new BaseController();
         gamePanel = baseController.getGamePanel();
-        // ???????1
-        snake1 = new StupidSnake("???1", Color.black, new Point(3, 1));
+        snake1 = new StupidSnake("snake1", Color.black, new Point(3, 1));
         snake1.UP_KEY = KeyEvent.VK_W;
         snake1.DOWN_KEY = KeyEvent.VK_S;
         snake1.LEFT_KEY = KeyEvent.VK_A;
@@ -36,48 +34,44 @@ class BaseControllerTest {
         for (int i = 1; i < 4; i++) {
             snake1.body.add(new Point(3 - i, 1));
         }
-        // ??????????
         barrier = new Barrier();
         gamePanel.addSnake(snake1);
         gamePanel.addBarrier(barrier);
-        // ????????
         baseController.addRandomFood(1);
     }
 
-    //???????
     @Test
     void moveDirection(){
-        GamePanel gamePanel = new GamePanel();
-        StupidSnake snake=new StupidSnake("???1", Color.black, new Point(3, 1));
-
-        var head=snake.getHead();
+        var head=snake1.getHead();
+        System.out.println(head);
         var before_x=head.x;
         var before_y=head.y;
-        snake.setDirection(Global.UP);
-        snake.move(false);
-        head=snake.getHead();
-        Assertions.assertEquals(before_y-1,head.y);    //??
+        snake1.setDirection(Global.UP);
+        snake1.move(false);
+        head=snake1.getHead();
+        Assertions.assertEquals(before_x,head.x);
+        Assertions.assertEquals(before_y-1,head.y);    //ио
 
         before_x=head.x;
         before_y=head.y;
-        snake.setDirection(Global.DOWN);
-        snake.move(false);
-        head=snake.getHead();
-        Assertions.assertEquals(before_y+1,head.y);    //??
+        snake1.setDirection(Global.DOWN);
+        snake1.move(false);
+        head=snake1.getHead();
+        Assertions.assertEquals(before_y+1,head.y);    //об
 
         before_x=head.x;
         before_y=head.y;
-        snake.setDirection(Global.LEFT);
-        snake.move(false);
-        head=snake.getHead();
-        Assertions.assertEquals(before_x-1,head.x);    //??
+        snake1.setDirection(Global.LEFT);
+        snake1.move(false);
+        head=snake1.getHead();
+        Assertions.assertEquals(before_x-1,head.x);    //вС
 
         before_x=head.x;
         before_y=head.y;
-        snake.setDirection(Global.RIGHT);
-        snake.move(false);
-        head=snake.getHead();
-        Assertions.assertEquals(before_x+1,head.x);    //??
+        snake1.setDirection(Global.RIGHT);
+        snake1.move(false);
+        head=snake1.getHead();
+        Assertions.assertEquals(before_x+1,head.x);    //ср
 
     }
 

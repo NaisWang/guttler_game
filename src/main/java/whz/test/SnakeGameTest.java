@@ -19,7 +19,7 @@ public class SnakeGameTest {
 		GamePanel gamePanel = baseController.getGamePanel();
 
 		// 初始化蛇1
-		var snake1 = new StupidSnake("玩家1", Color.black, new Point(3, 1));
+		var snake1 = new StupidSnake("snake1", Color.black, new Point(3, 1));
 		snake1.UP_KEY = KeyEvent.VK_W;
 		snake1.DOWN_KEY = KeyEvent.VK_S;
 		snake1.LEFT_KEY = KeyEvent.VK_A;
@@ -30,7 +30,7 @@ public class SnakeGameTest {
 		}
 
 		// 初始化蛇2
-		var snake2 = new StupidSnake("玩家2", Color.yellow, new Point(60, 1));
+		var snake2 = new StupidSnake("snake2", Color.yellow, new Point(60, 1));
 		snake2.setDirection(Global.LEFT);
 		for (int i = 1; i < 4; i++) {
 			snake2.body.add(new Point(60 + i, 1));
@@ -54,7 +54,7 @@ public class SnakeGameTest {
 		}
 //		gamePanel.setFocusable(true);
 		gamePanel.requestFocusInWindow();
-		// 加一个食物
+		// 添加食物
 		baseController.addRandomFood(5);
 
 //		jf.setContentPane();

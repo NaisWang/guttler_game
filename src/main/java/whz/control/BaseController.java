@@ -15,6 +15,27 @@ import java.util.Random;
 public class BaseController {
 	GamePanel gamePanel = new GamePanel();
 
+	public void init() {
+		gamePanel.getFoods().clear();
+		List<StupidSnake> snakes = gamePanel.getSnakes();
+		Point[] points  = {new Point(1,2),new Point(Global.DOUBLE_WIDTH-2,2) };
+		int index = 0;
+		for(StupidSnake stupidSnake : snakes){
+			stupidSnake.body.clear();
+			if(index == 0){
+				stupidSnake.setDirection(Global.RIGHT);
+				for (int i = 1; i < 4; i++) {
+					stupidSnake.body.add(new Point(3 - i, 1));
+				}
+			}else {
+				stupidSnake.setDirection(Global.LEFT);
+				for (int i = 1; i < 4; i++) {
+					stupidSnake.body.add(new Point(70 + i, 1));
+				}
+			}
+			index++;
+		}
+	}
 	// 移动+吃食物
 	public void snakesMove() {
 		var foods = gamePanel.getFoods();
@@ -30,7 +51,7 @@ public class BaseController {
 				}
 			}
 			snake.move(eatFood);
-			System.out.println(snake.name + ", " + snake.getHead().x + ", " + snake.getHead().y);
+			//System.out.println(snake.name + ", " + snake.getHead().x + ", " + snake.getHead().y);
 		}
 	}
 
@@ -88,6 +109,8 @@ public class BaseController {
 			System.out.print(tips);
 			JOptionPane.showConfirmDialog(null, tips);
 			//System.exit(0);
+			init();
+ 			return;
 		}
 
 		// 判断是否要生成食物
@@ -105,6 +128,8 @@ public class BaseController {
 				JOptionPane.showConfirmDialog(null, tips);
 				System.out.println(tips);
 				//System.exit(0);
+				init();
+				return;
 			}
 		}
 		gamePanel.repaint();
