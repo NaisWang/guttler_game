@@ -2,7 +2,9 @@ package whz.entity;
 
 import org.junit.BeforeClass;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import whz.control.BaseController;
 import whz.util.Global;
 import whz.view.GamePanel;
 
@@ -12,6 +14,8 @@ import javax.xml.validation.Validator;
 import java.awt.*;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -136,6 +140,42 @@ class StupidSnakeTest {
 
 			gamePanel.repaint();
 		});
+	}
+
+	//测试checkoutAndPaint中的是否吃到蛇
+	@Test
+	void checkAndPaintForEatOtherSnake() {
+		JFrame jf = new JFrame();
+
+		BaseController baseController = new BaseController();
+		GamePanel gamePanel = baseController.getGamePanel();
+
+		jf.setSize(100, 100);
+		jf.setFocusable(true);
+		jf.setVisible(true);
+
+		PrintStream console = null;
+		ByteArrayOutputStream bytes = new ByteArrayOutputStream();// 把标准输出指定到ByteArrayOutputStream中
+		console = System.out;// 获取System.out 输出流的句柄
+		System.setOut(new PrintStream(bytes));// 将原本输出到控制台Console的字符流重定向到bytes
+
+		//init Snake
+		gamePanel.addSnake(new StupidSnake("snake1", Color.black, new Point(1, 2)));
+		gamePanel.addSnake(new StupidSnake("snake2", Color.white, new Point(1, 2)));
+
+		// init foods
+		gamePanel.addFood(new Food(1, 3));
+		gamePanel.addFood(new Food(1, 5));
+
+		// init barrier
+		gamePanel.addBarrier(new Barrier());
+		gamePanel.addBarrier(new Barrier());
+
+		jf.add(gamePanel);
+
+
+		baseController.checkAndPaint();
+		assertEquals("snake1,snake2,fail", bytes.toString());
 	}
 
 }

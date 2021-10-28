@@ -29,7 +29,7 @@ public class BaseController {
                 }
             }
             snake.move(eatFood);
-            System.out.println(snake.name + ", " + snake.getHead().x + ", " + snake.getHead().y);
+            //System.out.println(snake.name + ", " + snake.getHead().x + ", " + snake.getHead().y);
         }
     }
 
@@ -94,11 +94,11 @@ public class BaseController {
                 tips += ',';
             }
 
-            tips += "失败了";
-            System.out.println(tips);
+            tips += "fail";
+            System.out.print(tips);
 //            gamePanel.repaint();
             JOptionPane.showConfirmDialog(null, tips);
-            System.exit(0);
+            //System.exit(0);
         }
 
         // 判断是否要生成食物

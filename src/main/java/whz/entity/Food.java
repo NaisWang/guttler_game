@@ -11,6 +11,6 @@ public class Food extends Entity {
     public Food(int x, int y) {
         super(x, y);
         setColor(Color.red);
-        System.out.println("Food:" + x + ", " + y);
+        //System.out.println("Food:" + x + ", " + y);
     }
 }
