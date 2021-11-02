@@ -13,7 +13,16 @@ import java.util.List;
 import java.util.Random;
 
 public class BaseController {
-	GamePanel gamePanel = new GamePanel();
+
+	GamePanel gamePanel = null;
+
+	public BaseController() {
+		gamePanel = new GamePanel();
+	}
+
+	public BaseController(int gameModel) {
+		gamePanel = new GamePanel(gameModel);
+	}
 
 	public void init() {
 		gamePanel.getFoods().clear();
@@ -24,6 +33,7 @@ public class BaseController {
 		int index = 0;
 		for (StupidSnake stupidSnake : snakes) {
 			stupidSnake.body.clear();
+			stupidSnake.food = 0;
 			if (index == 0) {
 				stupidSnake.body.add(new Point(3, 1));
 				stupidSnake.setDirection(Global.RIGHT);

@@ -15,7 +15,7 @@ public class DoubleSnakeGameTest{
 
 	public static void main(String[] args) {
 
-		BaseController baseController = new BaseController();
+		BaseController baseController = new BaseController(1);
 		GamePanel gamePanel = baseController.getGamePanel();
 
 		// ≥ı ºªØ…ﬂ1
