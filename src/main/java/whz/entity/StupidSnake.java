@@ -8,37 +8,36 @@ import java.awt.event.KeyEvent;
 import java.util.LinkedList;
 
 public class StupidSnake extends Entity {
-    //�ߵĵ�ǰ������Ҫ����ķ���
+    //蛇的当前方向与要变向的方向
     public int direction = Global.DOWN;
 
-    // ��β������
+    // 蛇尾的坐标
 //    public Point tail;
-    // �Ե�ʳ��ĸ���
+    // 吃掉食物的个数
     public int food = 0;
 
-    //���Ƿ���
+    // 蛇是否存活
     public boolean life = true;
 
 //    public boolean key = true;
 
-    // �߼������������ߵ��ƶ�
+    // 蛇监听器，监听蛇的移动
 //    public SnakeListener snakeListener;
 
-    // ����������нڵ��Ӧ������
+    // 蛇身体的所有节点对于的坐标
     public LinkedList<Point> body = new LinkedList();
 
-    // ��ÿ���ƶ��ļ��ʱ��
+    // 蛇每次移动的间隔时间
     public int interval = 150;
 
-    // �ߵ�����
+    // 蛇的名字
     public String name = "snake0";
 
-    // �����Ӧ�İ���
+    // 方向对应的按键
     public int LEFT_KEY = KeyEvent.VK_LEFT;
     public int RIGHT_KEY = KeyEvent.VK_RIGHT;
     public int UP_KEY = KeyEvent.VK_UP;
     public int DOWN_KEY = KeyEvent.VK_DOWN;
-
 
 
     public StupidSnake(String name, Color color, Point pos) {
@@ -47,7 +46,7 @@ public class StupidSnake extends Entity {
         body.push(pos);
     }
 
-    // ��������
+    // 监听键盘
     public KeyAdapter keyAdapter = new KeyAdapter() {
         @Override
         public void keyPressed(KeyEvent e) {
@@ -66,7 +65,7 @@ public class StupidSnake extends Entity {
                 newDirection = Global.DOWN;
             }
 
-            // ����ͻȻ������Ե��Լ�
+            // 不能突然反向吃到自己
             if (body.size() > 1 && getNext(newDirection).equals(body.get(1))) {
               return;
             }
@@ -76,13 +75,13 @@ public class StupidSnake extends Entity {
     };
 
 
-    // ���ƶ�
+    // 蛇移动
     public void move(boolean eatFood) {
-        // ��ȡ��ͷ��(x, y)����
+        // 获取蛇头的（x, y）坐标
         var head = getNext();
         body.addFirst(head);
 
-        // ���Ե�ʳ�����β��
+        // 若吃到食物，保持尾部
         if (!eatFood) {
 //            tail = body.removeLast();
             body.removeLast();
@@ -92,12 +91,12 @@ public class StupidSnake extends Entity {
 
     }
 
-    // ��ȡ��ͷ����
+    // 获取蛇头坐标
     public Point getHead() {
         return body.getFirst();
     }
 
-    // ��ȡҪ�ƶ�����һ�����꣬�Ƿ�ײǽ��ײ�������Controller�ж�
+    // 获取要移动的下一个坐标，是否撞墙、撞别的蛇由Controller判断
     public Point getNext() {
         return getNext(direction);
     }
@@ -128,7 +127,7 @@ public class StupidSnake extends Entity {
         return nextHead;
     }
 
-    // �ж��Ƿ�Ե��Լ�
+    // 判断是否吃到自己
     public boolean isEatSelf() {
         var head = getHead();
         for (int i = 1; i < body.size(); i++) {
@@ -140,7 +139,7 @@ public class StupidSnake extends Entity {
         return false;
     }
 
-    // �жϱ�����Ƿ���������
+    // 判断别的蛇是否触碰到该蛇
     @Override
     public boolean isHit(Point point) {
         for (var b : body) {
@@ -151,13 +150,13 @@ public class StupidSnake extends Entity {
         return false;
     }
 
-    // ������
+    // 绘制蛇
     @Override
     public void drawMyself(Graphics graphics) {
         graphics.setColor(Color.blue);
-        // �����ߵ����нڵ�����
+        // 遍历蛇的所有节点坐标
         for (int i = 0; i < body.size(); i++) {
-            // �����ߵĽڵ�
+            // 绘制蛇的节点
             if (body.get(i) != null) {
                 graphics.fillRoundRect((int) body.get(i).x * Global.CELL_SIZE, (int) body.get(i).y * Global.CELL_SIZE, Global.CELL_SIZE,
                         Global.CELL_SIZE, 10, 10);

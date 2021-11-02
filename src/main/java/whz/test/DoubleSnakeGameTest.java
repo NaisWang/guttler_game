@@ -10,10 +10,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 
-public class DoubleSnakeGameTest {
+public class DoubleSnakeGameTest{
 	private static JTextField grade;
 
 	public static void main(String[] args) {
+
 		BaseController baseController = new BaseController();
 		GamePanel gamePanel = baseController.getGamePanel();
 
@@ -66,6 +67,7 @@ public class DoubleSnakeGameTest {
 		jf.setLocationRelativeTo(null);
 		jf.setVisible(true);
 
+
 		while (true) {
 		    baseController.checkAndPaint();
 			try {
@@ -75,6 +77,9 @@ public class DoubleSnakeGameTest {
 			}
 
 		}
+
+
+
 	}
 
 }
