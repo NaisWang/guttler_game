@@ -24,7 +24,8 @@ public class GamePanel extends JPanel {
 	private JButton jButton = new JButton("单人模式");
 	private JButton jButton2 = new JButton("双人模式");
 	private JLabel jLabel = new JLabel(imageIcon);
-
+	private String[] diffiStrs = {"简单", "普通", "困难"};
+	private JComboBox jComboBox = new JComboBox(diffiStrs);
 
 	public GamePanel() {
 		setLayout(null);
@@ -38,7 +39,9 @@ public class GamePanel extends JPanel {
 						Global.BEGIN = true;
 						jButton.setVisible(false);
 						jButton2.setVisible(false);
+						jComboBox.setVisible(false);
 						initScoreText();
+						Global.DIFF =  jComboBox.getSelectedIndex();
 					}
 				}
 		);
@@ -53,15 +56,18 @@ public class GamePanel extends JPanel {
 						initScoreText();
 						jButton.setVisible(false);
 						jButton2.setVisible(false);
-
-
+						jComboBox.setVisible(false);
+						Global.DIFF =  jComboBox.getSelectedIndex();
 					}
 				}
 		);
 		add(jButton);
 		add(jButton2);
+		jComboBox.setBounds(Global.F_WIDTH / 2 - 50, Global.F_HEIGHT / 2, 100, 100);
+		add(jComboBox);
 		jButton.setFocusable(false);
 		jButton2.setFocusable(false);
+		jComboBox.setFocusable(false);
 
 
 	}

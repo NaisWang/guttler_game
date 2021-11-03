@@ -19,4 +19,5 @@ public class Global {
 	public static final int F_HEIGHT = DOUBLE_HEIGHT * CELL_SIZE;
 	public static boolean BEGIN = false;
 	public static boolean DOUBLE = false;
+	public static int DIFF = 0;
 }

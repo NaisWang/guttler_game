@@ -85,7 +85,19 @@ public class SnakeGameTest {
 
 			baseController.checkAndPaint();
 			try {
-				Thread.sleep(150);
+				System.out.println(Global.DIFF);
+				switch (Global.DIFF) {
+					case 1:
+						Thread.sleep(100);
+						break;
+					case 2:
+						Thread.sleep(50);
+						break;
+					case 0:
+					default:
+						Thread.sleep(150);
+						break;
+				}
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
