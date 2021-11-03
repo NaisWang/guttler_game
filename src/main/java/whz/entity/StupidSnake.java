@@ -16,7 +16,7 @@ public class StupidSnake extends Entity {
     // 吃掉食物的个数
     public int food = 0;
 
-    //蛇是否存活
+    // 蛇是否存活
     public boolean life = true;
 
 //    public boolean key = true;
@@ -24,7 +24,7 @@ public class StupidSnake extends Entity {
     // 蛇监听器，监听蛇的移动
 //    public SnakeListener snakeListener;
 
-    // 蛇身体的所有节点对应的坐标
+    // 蛇身体的所有节点对于的坐标
     public LinkedList<Point> body = new LinkedList();
 
     // 蛇每次移动的间隔时间
@@ -40,20 +40,19 @@ public class StupidSnake extends Entity {
     public int DOWN_KEY = KeyEvent.VK_DOWN;
 
 
-
     public StupidSnake(String name, Color color, Point pos) {
         setColor(color);
         this.name = name;
         body.push(pos);
-
     }
 
     // 监听键盘
     public KeyAdapter keyAdapter = new KeyAdapter() {
         @Override
         public void keyPressed(KeyEvent e) {
+
             var key = e.getKeyCode();
-//            System.out.println("你按下了:" + key);
+            System.out.println("�㰴����:" + key);
             var newDirection = direction;
 
             if (key == LEFT_KEY) {
@@ -66,7 +65,7 @@ public class StupidSnake extends Entity {
                 newDirection = Global.DOWN;
             }
 
-            // 不能突然反方向吃到自己
+            // 不能突然反向吃到自己
             if (body.size() > 1 && getNext(newDirection).equals(body.get(1))) {
               return;
             }
@@ -78,7 +77,7 @@ public class StupidSnake extends Entity {
 
     // 蛇移动
     public void move(boolean eatFood) {
-        // 获取蛇头的(x, y)坐标
+        // 获取蛇头的（x, y）坐标
         var head = getNext();
         body.addFirst(head);
 
@@ -158,8 +157,10 @@ public class StupidSnake extends Entity {
         // 遍历蛇的所有节点坐标
         for (int i = 0; i < body.size(); i++) {
             // 绘制蛇的节点
-            graphics.fillRoundRect((int) body.get(i).x * Global.CELL_SIZE, (int) body.get(i).y * Global.CELL_SIZE, Global.CELL_SIZE,
-                    Global.CELL_SIZE, 10, 10);
+            if (body.get(i) != null) {
+                graphics.fillRoundRect((int) body.get(i).x * Global.CELL_SIZE, (int) body.get(i).y * Global.CELL_SIZE, Global.CELL_SIZE,
+                        Global.CELL_SIZE, 10, 10);
+            }
         }
 
         if (!body.isEmpty()) {
@@ -177,6 +178,7 @@ public class StupidSnake extends Entity {
     public void setDirection(int direction) {
         this.direction = direction;
     }
+
 
 }
 

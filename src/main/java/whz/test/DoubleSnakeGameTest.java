@@ -10,15 +10,16 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 
-public class DoubleSnakeGameTest {
+public class DoubleSnakeGameTest{
 	private static JTextField grade;
 
 	public static void main(String[] args) {
-		BaseController baseController = new BaseController();
+
+		BaseController baseController = new BaseController(1);
 		GamePanel gamePanel = baseController.getGamePanel();
 
-		// ???????1
-		var snake1 = new StupidSnake("???1", Color.black, new Point(3, 1));
+		// 初始化蛇1
+		var snake1 = new StupidSnake("snake1", Color.black, new Point(3, 1));
 		snake1.UP_KEY = KeyEvent.VK_W;
 		snake1.DOWN_KEY = KeyEvent.VK_S;
 		snake1.LEFT_KEY = KeyEvent.VK_A;
@@ -28,36 +29,34 @@ public class DoubleSnakeGameTest {
 			snake1.body.add(new Point(3 - i, 1));
 		}
 
-		// ???????2
-		var snake2 = new StupidSnake("???2", Color.yellow, new Point(70, 1));
+		// 初始化蛇2
+		var snake2 = new StupidSnake("snake2", Color.yellow, new Point(70, 1));
 		snake2.setDirection(Global.LEFT);
 		for (int i = 1; i < 4; i++) {
 			snake2.body.add(new Point(70 + i, 1));
 		}
 
-		// ??????????
+		// 初始化障碍物
 		Barrier barrier = new Barrier();
 
 		gamePanel.addSnake(snake1);
 		gamePanel.addSnake(snake2);
 		gamePanel.addBarrier(barrier);
-		// ?????UI
+		// 初始化UI
 		JFrame jf = new JFrame();
 		jf.add(gamePanel);
 
-		// ??JFrame?????????????
+		// 往JFrame上添加键盘监听器
 		var snakes = gamePanel.getSnakes();
 
 		for (var snake : snakes) {
 			jf.addKeyListener(snake.keyAdapter);
 		}
 		gamePanel.requestFocus();
-		// ????????
-		baseController.addRandomFood(1);
+		// 添加食物
+		baseController.addRandomFood(5);
 
-//		jf.setContentPane();
-//		System.out.println(jf.getBounds().getSize());
-//		System.exit(0);
+
         jf.pack();
 		var insets = jf.getInsets();
 		System.out.println(insets);
@@ -68,6 +67,7 @@ public class DoubleSnakeGameTest {
 		jf.setLocationRelativeTo(null);
 		jf.setVisible(true);
 
+
 		while (true) {
 		    baseController.checkAndPaint();
 			try {
@@ -77,6 +77,9 @@ public class DoubleSnakeGameTest {
 			}
 
 		}
+
+
+
 	}
 
 }

@@ -12,13 +12,17 @@ class BarrierTest {
     @Test
     void isHit() {
         var barrier = new Barrier();
-        Assertions.assertEquals(
-                barrier.isHit(new Point(8, 0)),
+        for(int i = 0; i < 5; i++){
+            Assertions.assertEquals(
+                barrier.isHit(new Point(i, 0)),
                 true
-        );
-        Assertions.assertEquals(
-                barrier.isHit(new Point(3, 3)),
+            );
+        }
+        for(int i = 1; i< 5; i++){
+            Assertions.assertEquals(
+                barrier.isHit(new Point(3, i)),
                 false
-        );
+            );
+        }
     }
 }
