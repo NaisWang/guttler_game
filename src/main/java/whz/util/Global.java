@@ -15,4 +15,8 @@ public class Global {
 	public static final int DOWN = -1;
 	public static final int LEFT = 2;
 	public static final int RIGHT = -2;
+	public static final int F_WIDTH = DOUBLE_WIDTH * CELL_SIZE;
+	public static final int F_HEIGHT = DOUBLE_HEIGHT * CELL_SIZE;
+	public static boolean BEGIN = false;
+	public static boolean DOUBLE = false;
 }

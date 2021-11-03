@@ -30,10 +30,10 @@ public class SnakeGameTest {
 		}
 
 		// 初始化蛇2
-		var snake2 = new StupidSnake("snake2", Color.yellow, new Point(60, 1));
+		var snake2 = new StupidSnake("snake2", Color.yellow, new Point(70, 1));
 		snake2.setDirection(Global.LEFT);
 		for (int i = 1; i < 4; i++) {
-			snake2.body.add(new Point(60 + i, 1));
+			snake2.body.add(new Point(70 + i, 1));
 		}
 
 		// 初始化障碍物
@@ -70,8 +70,20 @@ public class SnakeGameTest {
 		jf.setLocationRelativeTo(null);
 		jf.setVisible(true);
 
+		gamePanel.repaint();
+
 		while (true) {
-		    baseController.checkAndPaint();
+		    if (!Global.BEGIN) {
+				System.out.println(Global.BEGIN);
+		    	continue;
+			}
+
+			if (gamePanel.getSnakes().size() < 2 && Global.DOUBLE) {
+				gamePanel.addSnake(snake2);
+				jf.addKeyListener(snake2.keyAdapter);
+			}
+
+			baseController.checkAndPaint();
 			try {
 				Thread.sleep(150);
 			} catch (InterruptedException e) {

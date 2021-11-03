@@ -158,7 +158,8 @@ public class StupidSnake extends Entity {
         for (int i = 0; i < body.size(); i++) {
             // 绘制蛇的节点
             if (body.get(i) != null) {
-                graphics.fillRoundRect((int) body.get(i).x * Global.CELL_SIZE, (int) body.get(i).y * Global.CELL_SIZE, Global.CELL_SIZE,
+                var p = body.get(i);
+                graphics.fillRoundRect((int) p.x * Global.CELL_SIZE, (int) p.y * Global.CELL_SIZE, Global.CELL_SIZE,
                         Global.CELL_SIZE, 10, 10);
             }
         }

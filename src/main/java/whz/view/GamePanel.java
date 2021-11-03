@@ -1,15 +1,18 @@
 package whz.view;
 
 import whz.entity.*;
+import whz.util.Global;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
 public class GamePanel extends JPanel {
 
-	// Ê∏∏ÊàèÊ®°Âºè 0: Ë°®Á§∫Âçï‰∫∫Ê®°ÂºèÔºõ 1Ôºö Ë°®Á§∫Âèå‰∫∫Ê®°Âºè
+	// ”Œœ∑ƒ£ Ω 0: ±Ì æµ•»Àƒ£ Ω£ª 1£∫ ±Ì æÀ´»Àƒ£ Ω
 	private int gameModel = 0;
 
 	private List<StupidSnake> snakes = new ArrayList<>();
@@ -17,9 +20,50 @@ public class GamePanel extends JPanel {
 	private List<Barrier> barriers = new ArrayList<>();
 	private JTextField scoreText = new JTextField();
 	private JTextField scoreTextTwo = new JTextField();
+	private ImageIcon imageIcon = new ImageIcon("src/main/resources/photo.jpg");
+	private JButton jButton = new JButton("µ•»Àƒ£ Ω");
+	private JButton jButton2 = new JButton("À´»Àƒ£ Ω");
+	private JLabel jLabel = new JLabel(imageIcon);
+
 
 	public GamePanel() {
-		initScoreText();
+		setLayout(null);
+
+		add(jLabel);
+		jButton.setBounds(Global.F_WIDTH / 2 - 150, Global.F_HEIGHT / 2 - 50, 100, 80);
+		jButton.addActionListener(
+				new ActionListener() {
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						Global.BEGIN = true;
+						jButton.setVisible(false);
+						jButton2.setVisible(false);
+						initScoreText();
+					}
+				}
+		);
+		jButton2.setBounds(Global.F_WIDTH / 2 + 50, Global.F_HEIGHT / 2 - 50, 100, 80);
+		jButton2.addActionListener(
+				new ActionListener() {
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						Global.BEGIN = true;
+						Global.DOUBLE = true;
+						gameModel = 1;
+						initScoreText();
+						jButton.setVisible(false);
+						jButton2.setVisible(false);
+
+
+					}
+				}
+		);
+		add(jButton);
+		add(jButton2);
+		jButton.setFocusable(false);
+		jButton2.setFocusable(false);
+
+
 	}
 
 	public GamePanel(int gameModel) {
@@ -27,14 +71,17 @@ public class GamePanel extends JPanel {
 		initScoreText();
 	}
 
-	// ÂàùÂßãÂåñÂàÜÊï∞Ê†è
+
+	// ≥ı ºªØ∑÷ ˝¿∏
 	private void initScoreText(){
 		scoreText.setText("snake1 score : 0");
 		scoreText.setFocusable(false);
+		scoreText.setBounds(0, 0, 150, 20);
 		this.add(scoreText);
 		if(gameModel == 1){
 			scoreTextTwo.setText("snake2 score : 0");
 			scoreTextTwo.setFocusable(false);
+			scoreTextTwo.setBounds(Global.F_WIDTH - 150, 0, 150, 20);
 			this.add(scoreTextTwo);
 		}
 	}
@@ -60,6 +107,7 @@ public class GamePanel extends JPanel {
 			barrier.drawMyself(g);
 		}
 
+//		g.drawImage(imageIcon.getImage(), 0, 0, Global.DOUBLE_WIDTH * Global.CELL_SIZE , Global.DOUBLE_HEIGHT * Global.CELL_SIZE , this);
 	}
 
 	public void addSnake(StupidSnake snake) {
