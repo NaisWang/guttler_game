@@ -52,7 +52,7 @@ public class StupidSnake extends Entity {
         public void keyPressed(KeyEvent e) {
 
             var key = e.getKeyCode();
-            System.out.println("�㰴����:" + key);
+            //System.out.println("�㰴����:" + key);
             var newDirection = direction;
 
             if (key == LEFT_KEY) {

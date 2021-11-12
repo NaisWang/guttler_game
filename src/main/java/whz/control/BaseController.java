@@ -8,6 +8,7 @@ import whz.view.GamePanel;
 
 import javax.swing.*;
 import java.awt.*;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -15,6 +16,9 @@ import java.util.Random;
 public class BaseController {
 
 	GamePanel gamePanel = null;
+
+	private int isDelete;
+	private String tips;
 
 	public BaseController() {
 		gamePanel = new GamePanel();
@@ -35,16 +39,16 @@ public class BaseController {
 			stupidSnake.body.clear();
 			stupidSnake.food = 0;
 			if (index == 0) {
-				stupidSnake.body.add(new Point(3, 1));
+				stupidSnake.body.add(new Point(3, 15));
 				stupidSnake.setDirection(Global.RIGHT);
 				for (int i = 1; i < 4; i++) {
-					stupidSnake.body.add(new Point(3 - i, 1));
+					stupidSnake.body.add(new Point(3 - i, 15));
 				}
 			} else {
 				stupidSnake.setDirection(Global.LEFT);
-				stupidSnake.body.add(new Point(70, 1));
+				stupidSnake.body.add(new Point(70, 15));
 				for (int i = 1; i < 4; i++) {
-					stupidSnake.body.add(new Point(70 + i, 1));
+					stupidSnake.body.add(new Point(70 + i, 15));
 				}
 			}
 			index++;
@@ -116,7 +120,7 @@ public class BaseController {
 
 		// 判断是否死亡，死亡则结束
 		if (dieSnake.size() > 0) {
-			String tips = "";
+			tips = "";
 			for (var snake : dieSnake) {
 				tips += snake.name;
 				tips += ',';
@@ -124,7 +128,17 @@ public class BaseController {
 
 			tips += "fail";
 			System.out.print(tips);
-			int isDelete = JOptionPane.showConfirmDialog(null, tips + ", 是否要重新开始游戏", "提示", JOptionPane.YES_NO_OPTION);
+			try {
+				SwingUtilities.invokeAndWait(new Runnable() {
+					@Override
+					public void run() {
+						isDelete = JOptionPane.showConfirmDialog(null, tips + ", 是否要重新开始游戏", "提示", JOptionPane.YES_NO_OPTION);
+					}
+				});
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
 			if (isDelete == JOptionPane.YES_OPTION) {
 				init();
 				return;
