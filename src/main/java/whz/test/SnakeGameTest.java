@@ -11,10 +11,10 @@ import whz.view.GamePanel;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 
-public class SnakeGameTest {
+public class SnakeGameTest extends Frame {
 	private static JTextField grade;
 
-	public static void main(String[] args) {
+ 	public SnakeGameTest() {
 		BaseController baseController = new BaseController();
 		GamePanel gamePanel = baseController.getGamePanel();
 

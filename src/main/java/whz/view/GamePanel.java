@@ -32,24 +32,29 @@ public class GamePanel extends JPanel {
 
 		add(jLabel);
 		jButton.setBounds(Global.F_WIDTH / 2 - 150, Global.F_HEIGHT / 2 - 50, 100, 80);
+		jButton.setName("singleBtn");
 		jButton.addActionListener(
 				new ActionListener() {
 					@Override
 					public void actionPerformed(ActionEvent e) {
+						System.out.println(e);
 						Global.BEGIN = true;
 						jButton.setVisible(false);
 						jButton2.setVisible(false);
 						jComboBox.setVisible(false);
 						initScoreText();
 						Global.DIFF =  jComboBox.getSelectedIndex();
+//						System.out.println(jButton.getName());
 					}
 				}
 		);
 		jButton2.setBounds(Global.F_WIDTH / 2 + 50, Global.F_HEIGHT / 2 - 50, 100, 80);
+		jButton2.setName("doubleBtn");
 		jButton2.addActionListener(
 				new ActionListener() {
 					@Override
 					public void actionPerformed(ActionEvent e) {
+//						System.out.println(e);
 						Global.BEGIN = true;
 						Global.DOUBLE = true;
 						gameModel = 1;
@@ -83,6 +88,7 @@ public class GamePanel extends JPanel {
 		scoreText.setText("snake1 score : 0");
 		scoreText.setFocusable(false);
 		scoreText.setBounds(0, 0, 150, 20);
+		scoreText.setName("scoreText");
 		this.add(scoreText);
 		if(gameModel == 1){
 			scoreTextTwo.setText("snake2 score : 0");
