@@ -17,7 +17,7 @@ import java.util.Random;
 /**
  * @author : whz
  */
-public class GUITest extends AssertJSwingJUnitTestCase {
+public class ScoreTest extends AssertJSwingJUnitTestCase {
 
 	private FrameFixture window;
 	private Integer[] directions1 = {KeyEvent.VK_UP, KeyEvent.VK_DOWN, KeyEvent.VK_LEFT, KeyEvent.VK_RIGHT};
@@ -84,7 +84,7 @@ public class GUITest extends AssertJSwingJUnitTestCase {
 
 	// 测试双人模式下吃到食物后，食物个数是否正常显示
 	@Test
-	public void GUITest() {
+	public void DoubleScoreTest() {
 
 		new Thread(new Runnable() {
 			@Override
@@ -92,7 +92,11 @@ public class GUITest extends AssertJSwingJUnitTestCase {
 				initOperate();
 			}
 		}).start();
+		try{
+			Thread.sleep(3000);
+		}catch (Exception e){
 
+		}
 		window.button("two").click();
 
 		int flag1 = 1;
@@ -101,9 +105,11 @@ public class GUITest extends AssertJSwingJUnitTestCase {
 			Integer snake1Score = Integer.parseInt(window.textBox("scoreText").text().replace("snake1", "").replace("score", "").replace(":", "").replace(" ", ""));
 			Integer snake2Score = Integer.parseInt(window.textBox("scoreTextTwo").text().replace("snake2", "").replace("score", "").replace(":", "").replace(" ", ""));
 
+
 			String foodPoints = window.textBox("foodPoints").text();
 			String snake1Points = window.textBox("snake1Points").text();
 			String snake2Points = window.textBox("snake2Points").text();
+
 
 			String snake1HeadPoint = snake1Points.split("-")[0];
 			String snake2HeadPoint = snake2Points.split("-")[0];
@@ -118,6 +124,41 @@ public class GUITest extends AssertJSwingJUnitTestCase {
 				Assertions.assertEquals(snake2Score + 1, Integer.parseInt(window.textBox("scoreTextTwo").text().replace("snake2", "").replace("score", "").replace(":", "").replace(" ", "")));
 			}
 
+		}
+	}
+
+	// 测试单人模式下吃到食物后，食物个数是否正常显示
+	@Test
+	public void SingleScoreTest() {
+
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				initOperate();
+			}
+		}).start();
+		try{
+			Thread.sleep(3000);
+		}catch (Exception e){}
+
+		window.button("one").click();
+
+		int flag1 = 1;
+		while (true && flag1 != 2) {
+			Integer snake1Score = Integer.parseInt(window.textBox("scoreText").text().replace("snake1", "").replace("score", "").replace(":", "").replace(" ", ""));
+
+			String foodPoints = window.textBox("foodPoints").text();
+			String snake1Points = window.textBox("snake1Points").text();
+
+			System.out.println(foodPoints);
+			System.out.println(snake1Points);
+
+			String snake1HeadPoint = snake1Points.split("-")[0];
+
+			if (Arrays.asList(foodPoints.split("-")).contains(snake1HeadPoint)) {
+				flag1 = 2;
+				Assertions.assertEquals(snake1Score + 1, Integer.parseInt(window.textBox("scoreText").text().replace("snake1", "").replace("score", "").replace(":", "").replace(" ", "")));
+			}
 		}
 	}
 
