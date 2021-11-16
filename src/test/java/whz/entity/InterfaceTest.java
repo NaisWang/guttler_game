@@ -23,7 +23,8 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 /**
  * @author : whz
  */
-public class InterfaceTest {
+public class
+InterfaceTest {
 
 	private PrintStream console = null;
 	private ByteArrayOutputStream bytes = null;

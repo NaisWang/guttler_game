@@ -14,9 +14,12 @@ import java.awt.event.KeyEvent;
 public class SnakeGameTest extends JFrame{
 	private static JTextField grade;
 
+  public 	BaseController baseController = null;
+  public	GamePanel gamePanel = null;
+
 	public SnakeGameTest() {
-		BaseController baseController = new BaseController();
-		GamePanel gamePanel = baseController.getGamePanel();
+		baseController = new BaseController();
+		gamePanel = baseController.getGamePanel();
 
 		// 初始化蛇1
 		var snake1 = new StupidSnake("snake1", Color.black, new Point(3, 15));
@@ -40,7 +43,6 @@ public class SnakeGameTest extends JFrame{
 		Barrier barrier = new Barrier();
 
 		gamePanel.addSnake(snake1);
-//		gamePanel.addSnake(snake2);
 		gamePanel.addBarrier(barrier);
 		// 初始化UI
 		add(gamePanel);
@@ -56,8 +58,8 @@ public class SnakeGameTest extends JFrame{
 		// 添加食物
 		baseController.addRandomFood(5);
 
-//		jf.setContentPane();
-//		System.out.println(jf.getBounds().getSize());
+//		setContentPane();
+//		System.out.println(getBounds().getSize());
 //		System.exit(0);
 		pack();
 		var insets = getInsets();

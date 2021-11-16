@@ -97,7 +97,7 @@ public class ScoreTest extends AssertJSwingJUnitTestCase {
 		}catch (Exception e){
 
 		}
-		window.button("two").click();
+		window.button("doubleBtn").click();
 
 		int flag1 = 1;
 		int flag2 = 1;
@@ -141,7 +141,7 @@ public class ScoreTest extends AssertJSwingJUnitTestCase {
 			Thread.sleep(3000);
 		}catch (Exception e){}
 
-		window.button("one").click();
+		window.button("singleBtn").click();
 
 		int flag1 = 1;
 		while (true && flag1 != 2) {

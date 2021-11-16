@@ -35,11 +35,12 @@ public class GamePanel extends JPanel {
 		setLayout(null);
 		add(jLabel);
 		jButton.setBounds(Global.F_WIDTH / 2 - 150, Global.F_HEIGHT / 2 - 50, 100, 80);
-		jButton.setName("one");
+		jButton.setName("singleBtn");
 		jButton.addActionListener(
 				new ActionListener() {
 					@Override
 					public void actionPerformed(ActionEvent e) {
+						System.out.println(e);
 						Global.BEGIN = true;
 						jButton.setVisible(false);
 						jButton2.setVisible(false);
@@ -51,10 +52,12 @@ public class GamePanel extends JPanel {
 		);
 		jButton2.setName("two");
 		jButton2.setBounds(Global.F_WIDTH / 2 + 50, Global.F_HEIGHT / 2 - 50, 100, 80);
+		jButton2.setName("doubleBtn");
 		jButton2.addActionListener(
 				new ActionListener() {
 					@Override
 					public void actionPerformed(ActionEvent e) {
+//						System.out.println(e);
 						Global.BEGIN = true;
 						Global.DOUBLE = true;
 						gameModel = 1;
@@ -69,6 +72,7 @@ public class GamePanel extends JPanel {
 		add(jButton);
 		add(jButton2);
 		jComboBox.setBounds(Global.F_WIDTH / 2 - 50, Global.F_HEIGHT / 2, 100, 100);
+		jComboBox.setName("diffComboBox");
 		add(jComboBox);
 		jButton.setFocusable(false);
 		jButton2.setFocusable(false);
